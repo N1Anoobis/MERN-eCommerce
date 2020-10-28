@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-// import { Footer } from '../../views/Footer/Footer';
+import { Footer } from '../../views/Footer/Footer';
 import { Header } from '../../layout/Header/Header';
 
 // import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ const Component = ({ className, children }) => (
     <Header />
     <h2>MainLayout</h2>
     {children}
-    {/* <Footer /> */}
+    <Footer />
   </div>
 );
 

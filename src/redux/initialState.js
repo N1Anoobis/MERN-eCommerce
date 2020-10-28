@@ -1,5 +1,5 @@
 export const initialState = {
-  posts: {
+  cars: {
     data: {},
     loading: {
       active: false,

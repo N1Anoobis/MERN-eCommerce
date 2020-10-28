@@ -1,5 +1,6 @@
+import Axios from 'axios';
 /* selectors */
-export const getAll = ({posts}) => posts.data;
+export const readCars = ({cars}) => cars.data;
 
 /* action name creator */
 const reducerName = 'posts';
@@ -16,6 +17,20 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
+export const loadCars = () => {
+  return (dispatch, getState) => {
+
+    dispatch(fetchStarted());
+    Axios
+      .get('http://localhost:8000/api/cars')
+      .then(res => {
+        dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {

@@ -4,18 +4,18 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
+  // Nav,
+  // NavItem,
+  // NavLink,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-
-// import clsx from 'clsx';
+import { Button } from 'reactstrap';
+import clsx from 'clsx';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-// import styles from './Header.module.scss';
+import styles from './Header.module.scss';
 
 const Component = ({ className, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,17 +23,19 @@ const Component = ({ className, children }) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className={clsx(className, styles.root)}>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Home</NavbarBrand>
+        <NavbarBrand className={styles.menuItem} href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/cart">Cart</NavLink>
-            </NavItem>
-          </Nav>
-          <NavLink href="https://github.com/reactstrap/reactstrap">Login</NavLink>
+          {/* <Nav className="mr-auto" navbar> */}
+          <NavbarBrand href="/cart">
+            <Button outline color="secondary">Cart</Button>{' '}
+          </NavbarBrand>
+          {/* </Nav> */}
+          <NavbarBrand className={styles.login} href="https://github.com/reactstrap/reactstrap" >
+            <Button outline color="success">Login</Button>{' '}
+          </NavbarBrand>
         </Collapse>
       </Navbar>
     </div>

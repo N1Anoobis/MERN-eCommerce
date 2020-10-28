@@ -16,7 +16,6 @@ const Component = ({ className, children }) => {
       <BreadcrumbItem active>Home</BreadcrumbItem>
     </Breadcrumb>
 
-
   );
   // </div>
 };
