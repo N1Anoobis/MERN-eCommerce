@@ -9,10 +9,12 @@ import { store } from './redux/store';
 
 import { MainLayout } from './components/layout/MainLayout/MainLayout';
 import { Homepage } from './components/views/Homepage/Homepage';
-import { Post } from './components/views/Post/Post';
-import { PostEdit } from './components/views/PostEdit/PostEdit';
-import { PostAdd } from './components/views/PostAdd/PostAdd';
-import { NotFound } from './components/views/NotFound/NotFound';
+import { Product } from './components/views/Product/Product';
+import { OrderSummary } from './components/views/OrderSummary/OrderSummary';
+import { Cart } from './components/views/Cart/Cart';
+// import { PostAdd } from './components/views/PostAdd/PostAdd';
+// import { NotFound } from './components/views/NotFound/NotFound';
+// import { Footer } from './components/views/Footer/Footer';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,10 +31,9 @@ const App = () => (
           <MainLayout>
             <Switch>
               <Route exact path='/' component={Homepage} />
-              <Route exact path='/post/add' component={PostAdd} />
-              <Route exact path='/post/:id' component={Post} />
-              <Route exact path='/post/:id/edit' component={PostEdit} />
-              <Route path='*' component={NotFound} />
+              <Route exact path='/cart' component={Cart} />
+              <Route exact path='/product/:id' component={Product} />
+              <Route exact path='/order' component={OrderSummary} />
             </Switch>
           </MainLayout>
         </ThemeProvider>
