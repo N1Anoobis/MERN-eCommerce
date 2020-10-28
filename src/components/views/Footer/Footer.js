@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import clsx from 'clsx';
 
 // import { connect } from 'react-redux';
@@ -8,12 +8,18 @@ import clsx from 'clsx';
 
 import styles from './Footer.module.scss';
 
-const Component = ({className, children}) => (
-  <div className={clsx(className, styles.root)}>
-    <h2>Footer</h2>
-    {children}
-  </div>
-);
+const Component = ({ className, children }) => {
+  // <div className={clsx(className, styles.root)}>
+  return (
+
+    <Breadcrumb className={clsx(className, styles.root)}>
+      <BreadcrumbItem active>Home</BreadcrumbItem>
+    </Breadcrumb>
+
+
+  );
+  // </div>
+};
 
 Component.propTypes = {
   children: PropTypes.node,
