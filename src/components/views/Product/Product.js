@@ -1,49 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron, Button } from 'reactstrap';
-
+import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { connect } from 'react-redux';
+import { getSingleCar, currentCar } from '../../../redux/carRedux';
 
 import styles from './Product.module.scss';
 
-const Component = ({ className, children }) => {
-  // <div className={clsx(className, styles.root)}>
+const Component = ({ className, getCar, car }) => {
+
+  const params = useParams();
+  useEffect(() => {
+    getCar(params.id);
+  }, []);
+
   return (
-    <div>
-      <Jumbotron>
-        <h1 className="display-3">Hello, world!</h1>
-        <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+    <div className={clsx(className, styles.root)}>
+      {car && <Jumbotron>
+        <h1 className="display-3">{car.mark} {car.model}</h1>
+        <p className="lead">This is uniqe mashine cost only {car.price}, it is run by {car.engine} engine. We can assemble for you one form {car.year} calling extra attention to featured content or information.</p>
         <hr className="my-2" />
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p className="lead">
           <Button color="primary">Learn More</Button>
         </p>
-      </Jumbotron>
+      </Jumbotron>}
     </div>
   );
-  {/* </div> */ }
 };
 
 Component.propTypes = {
-  children: PropTypes.node,
+  car: PropTypes.object,
   className: PropTypes.string,
+  getCar: PropTypes.func,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  car: currentCar(state),
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  getCar: (id) => dispatch(getSingleCar(id)),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Product,
-  // Container as Product,
+  // Component as Product,
+  Container as Product,
   Component as ProductComponent,
 };

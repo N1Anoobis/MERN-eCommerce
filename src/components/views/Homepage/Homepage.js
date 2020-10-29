@@ -44,7 +44,7 @@ const Component = ({ className, getCars, cars }) => {
           <CardTitle>{car.mark}</CardTitle>
           <CardSubtitle>{car.model}</CardSubtitle>
           <CardText>{car._id}</CardText>
-          <Button onClick={()=>routeChange(car._id)} props={car} component={Link} to={`/product/${car._id}`} >Details</Button>
+          <Button onClick={()=>routeChange(car._id)} >Details</Button>
         </CardBody>
       </Card>)}
     </div>

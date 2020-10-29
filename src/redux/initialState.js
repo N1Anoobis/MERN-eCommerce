@@ -5,5 +5,6 @@ export const initialState = {
       active: false,
       error: false,
     },
+    currentProduct:{},
   },
 };
