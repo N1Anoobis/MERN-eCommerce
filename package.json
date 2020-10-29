@@ -17,11 +17,6 @@
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "proxy": "http://localhost:8000/",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.js": [
       "yarn test-related --",

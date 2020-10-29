@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { readCars, loadCars } from '../../../redux/carRedux';
+import { Link } from 'react-router-dom';
 // import clsx from 'clsx';
-
+// import Carusel from '../../features/Carusel/Carusel'
+import { useHistory } from 'react-router-dom';
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button,
@@ -14,10 +16,8 @@ import {
 
 import styles from './Homepage.module.scss';
 
-const Component = ({ className, getCars, cars}) => {
-  // const [activeIndex, setActiveIndex] = useState(0);
-  // const [animating, setAnimating] = useState(false);
-
+const Component = ({ className, getCars, cars }) => {
+  const history = useHistory();
   useEffect(() => {
     getCars();
   }, []);
@@ -29,24 +29,22 @@ const Component = ({ className, getCars, cars}) => {
       carsArray.push(cars[i]);
     }
   }
+  
+  const routeChange = (id) => {
+    let path = `/product/${id}`;
+    history.push(path);
+  };
+
   return (
     <div className={styles.root}>
+      {/* <Carusel/> */}
       {(cars) && carsArray.map((car) => <Card key={car._id} className={styles.car} >
-        <CardImg  top  src={car.img} alt="Card image cap" />
+        <CardImg top src={car.img} alt="Card image cap" />
         <CardBody>
           <CardTitle>{car.mark}</CardTitle>
           <CardSubtitle>{car.model}</CardSubtitle>
           <CardText>{car._id}</CardText>
-          <Button>Details</Button>
-        </CardBody>
-      </Card>)}
-      {(cars) && carsArray.map((car) => <Card key={car._id} className={styles.car} >
-        <CardImg  top  src={car.img} alt="Card image cap" />
-        <CardBody>
-          <CardTitle>{car.mark}</CardTitle>
-          <CardSubtitle>{car.model}</CardSubtitle>
-          <CardText>{car._id}</CardText>
-          <Button>Details</Button>
+          <Button onClick={()=>routeChange(car._id)} props={car} component={Link} to={`/product/${car._id}`} >Details</Button>
         </CardBody>
       </Card>)}
     </div>
