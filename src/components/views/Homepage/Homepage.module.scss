@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   margin-top: 60px;
 
-  .car {
+  @mixin car {
     margin-bottom: 15px;
     max-width: 30%;
     transition: 1s;
@@ -22,6 +22,21 @@
       color: black;
       opacity: 1;
     }
+  }
+
+  .carDesktop {
+    @include car;
+    max-width: 30%;
+  }
+
+  .carTablet {
+    @include car;
+    max-width: 45%;
+  }
+
+  .carMobile {
+    @include car;
+    max-width: 90%;
   }
 
   .btn {

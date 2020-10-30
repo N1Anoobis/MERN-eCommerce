@@ -7,5 +7,6 @@ export const initialState = {
     },
     currentProduct:{},
     cart:{},
+    mode:{},
   },
 };
