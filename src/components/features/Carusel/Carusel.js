@@ -1,98 +1,94 @@
-// import React, { useState } from 'react';
-// import {
-//   Carousel,
-//   CarouselItem,
-//   CarouselControl,
-//   CarouselIndicators,
-//   CarouselCaption,
-// } from 'reactstrap';
-// import { readCars } from '../../../redux/carRedux';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption,
+} from 'reactstrap';
+import { currentCar } from '../../../redux/carRedux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import styles from './Carusel.module.scss';
+import clsx from 'clsx';
+const Carusel = ({ className, car }) => {
+   
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
-// const Carusel = ( {cars} ) => {
-//   console.log(cars);
-//   let carsArray = [];
-//   if (cars.length > 1) {
-//     for (let i = 0; i < cars.length; i++) {
-//       carsArray.push(cars[i]);
-//     }
-//   }
-//   const items = [
-//     {
-//       src: carsArray[1] ? carsArray[2].img : null,
-//       altText: 'Slide 1',
-//       caption: 'Slide 1',
-//     },
-//     {
-//       src: carsArray[2] ? carsArray[1].img : null,
-//       altText: 'Slide 2',
-//       caption: 'Slide 2',
-//     },
-//     {
-//       src: carsArray[0] ? carsArray[0].img : null,
-//       caption: 'Slide 3',
-//     },
-//   ];
+  let carsImg = [];
 
+  if(car.img){
+    carsImg = car.img;
+  }
 
+  if(car){
+    const items = [
+      {
+        src: carsImg[0] ? carsImg[2] : '',
+        altText: '):',
+        caption: 'Quality',
+      },
+      {
+        src: carsImg[0] ? carsImg[1] : ' ',
+        altText: '):',
+        caption: 'Innovation',
+      },
+      {
+        src: carsImg[0] ? carsImg[0] : null,
+        altText: '):',
+        caption: 'Future',
+      },
+    ];
 
-//   const [activeIndex, setActiveIndex] = useState(0);
-//   const [animating, setAnimating] = useState(false);
+    const next = () => {
+      if (animating) return;
+      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+      setActiveIndex(nextIndex);
+    };
 
-//   const next = () => {
-//     if (animating) return;
-//     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-//     setActiveIndex(nextIndex);
-//   };
+    const previous = () => {
+      if (animating) return;
+      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+      setActiveIndex(nextIndex);
+    };
 
-//   const previous = () => {
-//     if (animating) return;
-//     const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-//     setActiveIndex(nextIndex);
-//   };
+    const goToIndex = (newIndex) => {
+      if (animating) return;
+      setActiveIndex(newIndex);
+    };
 
-//   const goToIndex = (newIndex) => {
-//     if (animating) return;
-//     setActiveIndex(newIndex);
-//   };
+    const slides = items.map((item) => {
+      return (
+        <CarouselItem className={styles.box}
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          key={item.src}
+        >
+          <img className={clsx(className, styles.item)} src={item.src} alt={item.altText} />
+          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+        </CarouselItem>
+      );
+    });
 
-//   const slides = items.map((item) => {
-//     return (
-//       <CarouselItem
-//         onExiting={() => setAnimating(true)}
-//         onExited={() => setAnimating(false)}
-//         key={item.src}
-//       >
-//         <img src={item.src} alt={item.altText} />
-//         <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-//       </CarouselItem>
-//     );
-//   });
+    return (
+      <Carousel className={clsx(className, styles.root)}
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+      >
+        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+        {slides}
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      </Carousel>
+    );
+  }
+};
 
-//   return (
-//     <Carousel
-//       activeIndex={activeIndex}
-//       next={next}
-//       previous={previous}
-//     >
-//       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-//       {slides}
-//       <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-//       <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-//     </Carousel>
-//   );
-// };
+Carusel.propTypes = {
+  car: PropTypes.object,
+};
 
-// Carusel.propTypes = {
-//   cars: PropTypes.array,
- 
-// };
+const mapStateToProps = state => ({
+  car: currentCar(state),
+});
 
-// const mapStateToProps = state => ({
-//   cars: readCars(state),
-// });
-
-// export default connect(mapStateToProps)(Carusel);
+export default connect(mapStateToProps)(Carusel);
 
 

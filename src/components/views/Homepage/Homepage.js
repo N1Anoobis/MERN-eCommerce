@@ -39,11 +39,11 @@ const Component = ({ className, getCars, cars }) => {
     <div className={styles.root}>
       {/* <Carusel/> */}
       {(cars) && carsArray.map((car) => <Card key={car._id} className={styles.car} >
-        <CardImg top src={car.img} alt="Card image cap" />
+        <CardImg top src={car.img[0]} alt="Card image cap" />
         <CardBody>
           <CardTitle>{car.mark}</CardTitle>
-          <CardSubtitle>{car.model}</CardSubtitle>
-          <CardText>{car._id}</CardText>
+          {/* <CardSubtitle>{car.model}</CardSubtitle> */}
+          <CardText>{car.price}</CardText>
           <Button onClick={()=>routeChange(car._id)} >Details</Button>
         </CardBody>
       </Card>)}
