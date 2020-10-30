@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Jumbotron, Button, CardImg } from 'reactstrap';
+import { Jumbotron, Button, FormGroup, Label, Input } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import Carusel from '../../features/Carusel/Carusel'
@@ -21,7 +21,7 @@ const Component = ({ className, getCar, car }) => {
     <div className={clsx(className, styles.root)}>
       {car && <Jumbotron>
         <h1 className="display-4">{car.mark} {car.model}</h1>
-        <Carusel className={styles.dimentions} />
+        <Carusel />
         {/* <CardImg top src={car.img} alt="Card image cap" /> */}
         <p className="lead">This is uniqe mashine cost only {car.price}, it is run by {car.engine} engine. We can assemble for you one form {car.year} calling extra attention to featured content or information.</p>
         <hr className="my-2" />
@@ -29,6 +29,16 @@ const Component = ({ className, getCar, car }) => {
         <p className="lead">
           <Button color="primary">Learn More</Button>
         </p>
+        <FormGroup>
+          <Label for="exampleSelect">Select</Label>
+          <Input className={styles.input} type="select" name="select" id="exampleSelect">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </Input>
+        </FormGroup>
       </Jumbotron>}
     </div>
   );

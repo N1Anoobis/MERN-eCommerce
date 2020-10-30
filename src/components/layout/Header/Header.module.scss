@@ -1,16 +1,3 @@
 @import '../../../styles/settings.scss';
 
-.root {
-    transition: .3s;
-  .menuItem {
-    opacity: .4;
-    &:hover {
-      opacity: 1;
-    }
-  }
 
-  .login {
-    margin-right: 30px;
-    margin-left: auto;
-  }
-}

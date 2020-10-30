@@ -10,7 +10,7 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button,
 } from 'reactstrap';
-
+import clsx from 'clsx';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -36,15 +36,15 @@ const Component = ({ className, getCars, cars }) => {
   };
 
   return (
-    <div className={styles.root}>
+    <div className={clsx(className, styles.root)}>
       {/* <Carusel/> */}
       {(cars) && carsArray.map((car) => <Card key={car._id} className={styles.car} >
-        <CardImg top src={car.img[0]} alt="Card image cap" />
+        <CardImg className={styles.carImg} src={car.img[0]} alt="Card image cap" />
         <CardBody>
           <CardTitle>{car.mark}</CardTitle>
           {/* <CardSubtitle>{car.model}</CardSubtitle> */}
-          <CardText>{car.price}</CardText>
-          <Button onClick={()=>routeChange(car._id)} >Details</Button>
+          <Button color="success" outline className={styles.btn} onClick={()=>routeChange(car._id)} >Details</Button>
+          <CardText>Only: {car.price}$</CardText>
         </CardBody>
       </Card>)}
     </div>

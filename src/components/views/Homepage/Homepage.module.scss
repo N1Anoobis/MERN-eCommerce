@@ -5,9 +5,32 @@
   justify-content: space-around;
   align-content: space-between;
   flex-wrap: wrap;
+  margin-top: 60px;
 
   .car {
     margin-bottom: 15px;
     max-width: 30%;
+    transition: 1s;
+    overflow: hidden;
+    text-align: center;
+
+    &:hover .carImg {
+      transform: scale(1.1);
+    }
+
+    &:hover .btn {
+      color: black;
+      opacity: 1;
+    }
+  }
+
+  .btn {
+    color: transparent;
+    opacity: 0;
+    margin-bottom: 10px;
+  }
+
+  .carImg {
+    transition: 1s;
   }
 }

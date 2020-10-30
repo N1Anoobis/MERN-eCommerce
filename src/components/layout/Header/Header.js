@@ -1,44 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  // Nav,
+  Nav,
   // NavItem,
   // NavLink,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import clsx from 'clsx';
-
+import NavBar from '../../features/Navbar/Navbar';
+import NavBarMobile from '../../features/NavBarMobile/NavBarMobile';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Header.module.scss';
 
 const Component = ({ className, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
-
+  let mode = null;
+  const [size, setSize] = useState([0]);
+  size < 400 ? mode = 'mobile' : mode = 'desktop';
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  // console.log(isOpen);
   return (
     <div className={clsx(className, styles.root)}>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand className={styles.menuItem} href="/">Home</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          {/* <Nav className="mr-auto" navbar> */}
-          <NavbarBrand href="/cart">
-            <Button outline color="secondary">Cart</Button>{' '}
-          </NavbarBrand>
-          {/* </Nav> */}
-          <NavbarBrand className={styles.login} href="https://github.com/reactstrap/reactstrap" >
-            <Button outline color="success">Login</Button>{' '}
-          </NavbarBrand>
-        </Collapse>
-      </Navbar>
-    </div>
+      {mode === 'desktop' ? <NavBar /> : <NavBarMobile mode={'mobile'}/>}
+    </div >
   );
 };
 

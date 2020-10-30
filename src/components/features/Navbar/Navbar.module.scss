@@ -1,0 +1,29 @@
+@import '../../../styles/settings.scss';
+
+    .nav{
+      background-color: black;
+      padding: 5px;
+      display: flex;
+    }
+  .menuItem {
+    margin-left: 20px;
+    color: white;
+    
+    opacity: .6;
+    &:hover {
+      opacity: 1;
+      color: white;
+    }
+  }
+
+  .login {
+    color: green;
+    margin-right: 30px;
+    margin-left: auto;
+    opacity: .8;
+    &:hover {
+        opacity: 1;
+        color: green;
+      }
+  }
+

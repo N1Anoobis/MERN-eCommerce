@@ -1,0 +1,57 @@
+@import '../../../styles/settings.scss';
+
+.nav {
+  background-color: black;
+  padding: 5px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.menuItem {
+  color: white;
+  opacity: .6;
+
+  &:hover {
+    opacity: 1;
+    color: white;
+  }
+}
+
+.hamburger {
+  margin-left: 90%;
+  color: white;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.login {
+  color: green;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+    color: green;
+  }
+}
+
+.open {
+
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  align-items: center;
+  position: relative;
+
+  .login {
+    margin: 0;
+  }
+}
