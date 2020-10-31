@@ -47,5 +47,15 @@
 
   .carImg {
     transition: 1s;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .carBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
   }
 }

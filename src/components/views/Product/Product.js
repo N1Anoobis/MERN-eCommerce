@@ -1,21 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron, Button, FormGroup, Label, Input } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import Carusel from '../../features/Carusel/Carusel'
+import Carusel from '../../features/Carusel/Carusel';
 import { connect } from 'react-redux';
-import { getSingleCar, currentCar } from '../../../redux/carRedux';
+import { getSingleCar, currentCar, addToBasket } from '../../../redux/carRedux';
 
 import styles from './Product.module.scss';
 
-const Component = ({ className, getCar, car }) => {
+const Component = ({ className, getCar, car, addCart }) => {
 
+  const [quantity, setQuantity] = useState('1');
   const params = useParams();
   useEffect(() => {
     getCar(params.id);
-
   }, []);
+
+  const addToCart = () => {
+
+    const data = {
+      car: car._id,
+      quantity,
+    };
+    console.log(data);
+    addCart(data);
+  };
+
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -27,11 +38,11 @@ const Component = ({ className, getCar, car }) => {
         <hr className="my-2" />
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p className="lead">
-          <Button color="primary">Learn More</Button>
+          <Button onClick={addToCart} outline color="success">Add To Cart</Button>
         </p>
         <FormGroup>
           <Label for="exampleSelect">Select</Label>
-          <Input className={styles.input} type="select" name="select" id="exampleSelect">
+          <Input onChange={event => setQuantity(event.target.value)} className={styles.input} type="select" name="select" id="exampleSelect">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -48,6 +59,7 @@ Component.propTypes = {
   car: PropTypes.object,
   className: PropTypes.string,
   getCar: PropTypes.func,
+  addCart: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -56,6 +68,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCar: (id) => dispatch(getSingleCar(id)),
+  addCart: (data) => dispatch(addToBasket(data)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

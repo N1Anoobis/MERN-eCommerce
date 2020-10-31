@@ -45,7 +45,7 @@ const Component = ({ className, getCars, cars, getMode }) => {
       {/* <Carusel/> */}
       {(cars) && carsArray.map((car) => <Card key={car._id} className={mode === 'desktop' ? styles.carDesktop : mode === 'mobile' ? styles.carMobile : styles.carTablet} >
         <CardImg className={styles.carImg} src={car.img[0]} alt="Card image cap" />
-        <CardBody>
+        <CardBody className={styles.carBody}>
           <CardTitle>{car.mark}</CardTitle>
           {/* <CardSubtitle>{car.model}</CardSubtitle> */}
           <Button color="success" outline className={styles.btn} onClick={() => routeChange(car._id)} >Details</Button>
