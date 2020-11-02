@@ -14,14 +14,14 @@ const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 const FETCH_CAR = createActionName('FETCH_CAR');
 const SET_MODE = createActionName('SET_MODE');
-const ADD_CART = createActionName('ADD_CART');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const fetchSingleCar = payload => ({ payload, type: FETCH_CAR });
 export const setGlobalViewPort = payload => ({ payload, type: SET_MODE });
-export const addToBasket = payload => ({ payload, type: ADD_CART });
+
 /* thunk creators */
 export const loadCars = () => {
   return (dispatch, getState) => {
@@ -101,16 +101,6 @@ export const reducer = (statePart = [], action = {}) => {
           error: false,
         },
         mode: action.payload,
-      };
-    }
-    case ADD_CART: {
-      return {
-        ...statePart,
-        loading: {
-          active: false,
-          error: false,
-        },
-        cart: action.payload,
       };
     }
     default:

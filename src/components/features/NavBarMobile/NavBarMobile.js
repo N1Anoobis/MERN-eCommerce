@@ -7,24 +7,23 @@ import {
 } from 'reactstrap';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
+import 'font-awesome/css/font-awesome.min.css';
 import styles from './NavBarMobile.module.scss';
 
 const NavBarMobile = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   console.log(isOpen)
-  const toggle = () => {setIsOpen(!isOpen);
+  const toggle = () => {
+    setIsOpen(!isOpen);
 
 
   };
   return (
     <nav className={clsx(className, styles.nav)}>
-
-      <NavbarBrand className={styles.hamburger} onClick={toggle}>H</NavbarBrand>
-
-      {isOpen ?<div className={styles.open}> <NavbarBrand className={styles.menuItem} href='/'>Home</NavbarBrand>
+      <NavbarBrand className={styles.hamburger} onClick={toggle}>{isOpen ? <i className="fa fa-times"></i> : <i className="fa fa-bars"></i>}</NavbarBrand>
+      {isOpen ? <div className={styles.open}> <NavbarBrand className={styles.menuItem} href='/'>Home</NavbarBrand>
         <NavbarBrand className={styles.menuItem} href='/cart'>Cart</NavbarBrand>
-        <NavbarBrand className={styles.login} href='https://google.com'>Login</NavbarBrand></div>: null}
+        <NavbarBrand className={styles.login} href='https://google.com'>Login</NavbarBrand></div> : null}
     </nav>
   );
 };

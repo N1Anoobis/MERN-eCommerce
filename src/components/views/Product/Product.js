@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import Carusel from '../../features/Carusel/Carusel';
 import { connect } from 'react-redux';
-import { getSingleCar, currentCar, addToBasket } from '../../../redux/carRedux';
+import { getSingleCar, currentCar } from '../../../redux/carRedux';
+
+import { saveCartToLocalStorage } from '../../../redux/cartRedux';
 
 import styles from './Product.module.scss';
 
-const Component = ({ className, getCar, car, addCart }) => {
+const Component = ({ className, getCar, car, saveCart }) => {
 
   const [quantity, setQuantity] = useState('1');
   const params = useParams();
@@ -23,10 +25,9 @@ const Component = ({ className, getCar, car, addCart }) => {
       car: car._id,
       quantity,
     };
-    console.log(data);
-    addCart(data);
+    // console.log(data);
+    saveCart(data);
   };
-
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -59,7 +60,7 @@ Component.propTypes = {
   car: PropTypes.object,
   className: PropTypes.string,
   getCar: PropTypes.func,
-  addCart: PropTypes.object,
+  saveCart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -68,7 +69,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCar: (id) => dispatch(getSingleCar(id)),
-  addCart: (data) => dispatch(addToBasket(data)),
+  saveCart: (data) => dispatch(saveCartToLocalStorage(data)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

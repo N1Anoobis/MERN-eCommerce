@@ -4,10 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { initialState } from './initialState';
 import { reducer as carReducer } from './carRedux';
+import { reducer as cartReducer } from './cartRedux';
 
 // define reducers
 const reducers = {
   cars: carReducer,
+  cart: cartReducer,
 };
 
 // add blank reducers for initial state properties without reducers
