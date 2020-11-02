@@ -25,6 +25,7 @@ export const saveCartToLocalStorage = data => {
   return () => {
 
     localStorage.setItem('cart', JSON.stringify(data));
+    
   };
 };
 
@@ -53,7 +54,9 @@ export const reducer = (statePart = [], action = {}) => {
     case FETCH_SUCCESS: {
       return {
         ...statePart,
-        cart: action.payload,
+        cart:{ ...statePart, 
+          ...action.payload,
+        },
       };
     }
     case FETCH_ERROR: {

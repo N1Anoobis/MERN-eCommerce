@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 const carRoutes = require('./routes/api/car.routes');
 
 const app = express();
-const session = require('express-session');
+// const session = require('express-session');
 
-app.use(session({secret: '123456'}));
+// app.use(session({secret: '123456'}));
 /* MIDDLEWARE */
 app.use(cors());
 app.use(express.json());

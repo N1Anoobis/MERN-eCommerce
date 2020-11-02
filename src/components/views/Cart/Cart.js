@@ -13,14 +13,14 @@ const Component = ({ className, showCart, cart }) => {
 
   // const cartProducts = JSON.parse(localStorage.getItem('cart'));
   useEffect(() => {
-    showCart();
+    // showCart();
 
   }, []);
 
-  let currentCart = cart.car;
+  console.log(cart.cart) 
   return (
     <div className={clsx(className, styles.root)}>
-      <h2>{currentCart}</h2>
+      <h2></h2>
       {/* {cartProducts[0]} */}
     </div>
   );
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showCart: () => dispatch(loadCartfromLocalStorage()),
+
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

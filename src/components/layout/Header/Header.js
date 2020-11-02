@@ -5,10 +5,10 @@ import NavBar from '../../features/Navbar/Navbar';
 import NavBarMobile from '../../features/NavBarMobile/NavBarMobile';
 import { connect } from 'react-redux';
 import { setGlobalViewPort } from '../../../redux/carRedux';
-
+import { loadCartfromLocalStorage, getCart } from '../../../redux/cartRedux';
 import styles from './Header.module.scss';
 
-const Component = ({ className, setViewPort }) => {
+const Component = ({ className, setViewPort, cart, showCart}) => {
 
   let mode = null;
   const [size, setSize] = useState([0]);
@@ -20,6 +20,8 @@ const Component = ({ className, setViewPort }) => {
     mode = 'desktop';
   }
   useLayoutEffect(() => {
+    showCart()
+    // getCart()
     function updateSize() {
       setSize([window.innerWidth]);
 
@@ -30,11 +32,11 @@ const Component = ({ className, setViewPort }) => {
     return () => window.removeEventListener('resize', updateSize);
 
   }, []);
-
+  console.log(cart.cart) 
   setViewPort(mode);
   return (
     <div className={clsx(className, styles.root)}>
-      {mode === 'desktop' || mode === 'tablet' ? <NavBar /> : <NavBarMobile mode={'mobile'} />}
+      {mode === 'desktop' || mode === 'tablet' ? <NavBar cart={cart}/> : <NavBarMobile  mode={'mobile'} />}
     </div >
   );
 };
@@ -45,11 +47,12 @@ Component.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  //   someProp: reduxSelector(state),
+  cart: getCart(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   setViewPort: (mode) => dispatch(setGlobalViewPort(mode)),
+  showCart: () => dispatch(loadCartfromLocalStorage()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
