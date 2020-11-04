@@ -1,28 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
-
+import { ListGroup, ListGroupItem, Badge, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import { loadCartfromLocalStorage, getCart } from '../../../redux/cartRedux';
+import { getCart, saveCartRequest } from '../../../redux/cartRedux';
+import AmountWidget from '../../../components/features/AmountWidget/AmountWidget';
 
 import styles from './Cart.module.scss';
 
-const Component = ({ className, showCart, cart }) => {
+const Component = ({ className, cart, getCar, saveToCart }) => {
   // const login = localStorage.getItem('login');
-
+  const [quantity, setQuantity] = useState();
+  let cartArray = []
   // const cartProducts = JSON.parse(localStorage.getItem('cart'));
+  const mounted = useRef();
   useEffect(() => {
-    // showCart();
+    if (!mounted.current) {
+      // do componentDidMount logic
+     
+      mounted.current = true;
+      
+    } else {
+      // do componentDidUpdate logic
+      cartArray = Array.from(cart.products)
 
-  }, []);
+    }
+  });
 
-  console.log(cart.cart) 
+  
+  cartArray = Array.from(cart.products)
+  // console.log(cartArray)
   return (
-    <div className={clsx(className, styles.root)}>
-      <h2></h2>
-      {/* {cartProducts[0]} */}
-    </div>
+    // <div >
+    <ListGroup >
+
+   
+      {cart && cartArray.map(product => <ListGroupItem className={clsx(className, styles.root)} key={product.id} >{product.product}<Badge pill>{product.mark}  {product.model} x</Badge> <AmountWidget id={product.id} amount={product.amount}/><Badge pill>Total Price: {quantity ? product.price * quantity : product.price * product.amount}</Badge> </ListGroupItem>)}
+    </ListGroup>
+
   );
 };
 
@@ -36,7 +52,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  saveToCart: (id, amount, mark, model, price, engine) => dispatch(saveCartRequest({ id, amount, mark, model, price, engine })),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

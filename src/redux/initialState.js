@@ -8,5 +8,7 @@ export const initialState = {
     currentProduct:{},
     mode:{},
   },
-  cart:{},
+  cart: {
+    products: [],
+  },
 };

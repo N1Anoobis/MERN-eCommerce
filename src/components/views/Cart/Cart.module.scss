@@ -1,4 +1,12 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+
+  .input {
+    margin: auto 30px;
+    max-width: 60px;
+  }
+}

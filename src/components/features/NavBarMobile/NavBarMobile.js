@@ -12,7 +12,7 @@ import styles from './NavBarMobile.module.scss';
 
 const NavBarMobile = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen)
+  // console.log(isOpen)
   const toggle = () => {
     setIsOpen(!isOpen);
 

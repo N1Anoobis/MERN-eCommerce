@@ -1,10 +1,8 @@
 
-import Axios from 'axios';
-
-
 /* selectors */
-
 export const getCart = ({ cart }) => cart;
+
+
 /* action name creator */
 const reducerName = 'cart';
 const createActionName = name => `app/${reducerName}/${name}`;
@@ -13,50 +11,77 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+const ADD_TO_CART = createActionName('ADD_TO_CART');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+export const addProductToCart = payload => ({ payload, type: ADD_TO_CART });
+
 
 /* thunk creators */
+export const saveCartRequest = data => {
+  return dispatch => {
+    const cartProducts = JSON.parse(localStorage.getItem('cart'));
+    if (cartProducts) {
 
-export const saveCartToLocalStorage = data => {
-  return () => {
+      for (const product of cartProducts) {
+        if (product.id === data.id) {
+          if (data.minus) {
+            if (product.amount > 0) {
+              product.amount = parseInt(product.amount) - parseInt(data.amount);
+              localStorage.setItem('cart', JSON.stringify([...cartProducts]));
+            }
+            return;
+          }
+          if (product.amount < 5) {
+            product.amount = parseInt(product.amount) + parseInt(data.amount);
 
-    localStorage.setItem('cart', JSON.stringify(data));
-    
+            localStorage.setItem('cart', JSON.stringify([...cartProducts]));
+          }
+          return;
+        }
+
+      }
+
+
+      localStorage.setItem('cart', JSON.stringify([...cartProducts, data]));
+
+      dispatch(addProductToCart([...cartProducts, data]));
+    } else {
+
+      localStorage.setItem('cart', JSON.stringify([data]));
+      dispatch(addProductToCart([data]));
+    }
   };
 };
 
-export const loadCartfromLocalStorage = () => {
+export const loadCartRequest = () => {
   return dispatch => {
-
     let getSavedCart;
-    getSavedCart = JSON.parse(localStorage.getItem('cart'))
-    console.log(getSavedCart)
-    dispatch(fetchSuccess(getSavedCart));
+    localStorage.getItem('cart') ?
+      getSavedCart = JSON.parse(localStorage.getItem('cart')) : getSavedCart = [];
+    dispatch(addProductToCart(getSavedCart));
   };
 };
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
   switch (action.type) {
-    // case FETCH_START: {
-    //   return {
-    //     ...statePart,
-    //     loading: {
-    //       active: true,
-    //       error: false,
-    //     },
-    //   };
-    // }
+    case FETCH_START: {
+      return {
+        ...statePart,
+        loading: {
+          active: true,
+          error: false,
+        },
+      };
+    }
     case FETCH_SUCCESS: {
       return {
         ...statePart,
-        cart:{ ...statePart, 
-          ...action.payload,
-        },
+        products: action.payload ? action.payload : [],
       };
     }
     case FETCH_ERROR: {
@@ -66,6 +91,13 @@ export const reducer = (statePart = [], action = {}) => {
           active: false,
           error: action.payload,
         },
+      };
+    }
+    case ADD_TO_CART: {
+
+      return {
+        ...statePart,
+        products: action.payload,
       };
     }
 

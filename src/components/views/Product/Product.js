@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useHistory } from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron, Button, FormGroup, Label, Input } from 'reactstrap';
 import { useParams } from 'react-router-dom';
@@ -6,32 +6,54 @@ import clsx from 'clsx';
 import Carusel from '../../features/Carusel/Carusel';
 import { connect } from 'react-redux';
 import { getSingleCar, currentCar } from '../../../redux/carRedux';
-
-import { saveCartToLocalStorage } from '../../../redux/cartRedux';
-
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { saveCartRequest } from '../../../redux/cartRedux';
+import { Link } from 'react-router-dom';
 import styles from './Product.module.scss';
 
-const Component = ({ className, getCar, car, saveCart }) => {
+const Component = ({ className, getCar, car, saveToCart }) => {
 
   const [quantity, setQuantity] = useState('1');
   const params = useParams();
+
   useEffect(() => {
+
     getCar(params.id);
   }, []);
 
   const addToCart = () => {
-
-    const data = {
-      car: car._id,
-      quantity,
-    };
-    // console.log(data);
-    saveCart(data);
+    saveToCart(car._id, quantity, car.mark, car.model, car.price, car.engine,);
+    toggle();
   };
+
+
+  // const routeChange = () => {
+  //   let path = `/cart`;
+  // };
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   return (
     <div className={clsx(className, styles.root)}>
-      {car && <Jumbotron>
+
+      <div>
+        {/* <Button color="danger" onClick={toggle}></Button> */}
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>Product added to cart</ModalHeader>
+          <ModalBody>
+            You have just aded {quantity} to cart. You can allways adjust number of cars in cart.
+            Thank You for chosing our company
+          </ModalBody>
+          <ModalFooter>
+            <Button color="info" href="/cart">Go to cart</Button>{' '}
+            <Button color="info" onClick={toggle}>Continioues</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+
+      {car && <Jumbotron className={styles.jumbo}>
         <h1 className="display-4">{car.mark} {car.model}</h1>
         <Carusel />
         {/* <CardImg top src={car.img} alt="Card image cap" /> */}
@@ -60,7 +82,7 @@ Component.propTypes = {
   car: PropTypes.object,
   className: PropTypes.string,
   getCar: PropTypes.func,
-  saveCart: PropTypes.func,
+  saveToCart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -69,7 +91,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCar: (id) => dispatch(getSingleCar(id)),
-  saveCart: (data) => dispatch(saveCartToLocalStorage(data)),
+  saveToCart: (id, amount, mark, model, price, engine) => dispatch(saveCartRequest({ id, amount, mark, model, price, engine })),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

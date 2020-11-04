@@ -11,11 +11,11 @@ import clsx from 'clsx';
 import styles from './Navbar.module.scss';
 
 const NavBar = ({ className, cart }) => {
-  console.log(cart)
+  // console.log(cart)
   return (
     <nav className={clsx(className, styles.nav)}>
       <NavbarBrand className={styles.menuItem} href="/">Home</NavbarBrand>
-      <NavbarBrand className={styles.menuItem} href="/cart">Cart <Badge color="danger" pill>{cart.cart.car.length}</Badge></NavbarBrand>
+      <NavbarBrand className={styles.menuItem} href="/cart">Cart <Badge color="danger" pill>{cart.products.length > 0 && cart.products.length}</Badge></NavbarBrand>
       <NavbarBrand className={styles.login} href="https://google.com">Login</NavbarBrand>
     </nav>
   )

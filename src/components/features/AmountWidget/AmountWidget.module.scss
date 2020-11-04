@@ -1,0 +1,23 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  height: 60px;
+  width: 120px;
+  color: white;
+  overflow: hidden;
+  border-radius: 15%;
+
+  .arrow {
+    text-align: center;
+    background-color: green;
+    color: white;
+    font-size: 40px;
+    padding-top: 20px;
+    border-radius: 15%;
+    width: 30%;
+  }
+}
