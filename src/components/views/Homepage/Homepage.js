@@ -2,18 +2,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { readCars, loadCars, getViewMode } from '../../../redux/carRedux';
-// import { Link } from 'react-router-dom';
-// import clsx from 'clsx';
-// import Carusel from '../../features/Carusel/Carusel'
 import { useHistory } from 'react-router-dom';
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, Button,
 } from 'reactstrap';
 import clsx from 'clsx';
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
 import styles from './Homepage.module.scss';
 
 const Component = ({ className, getCars, cars, getMode }) => {
@@ -36,9 +30,6 @@ const Component = ({ className, getCars, cars, getMode }) => {
   };
 
   const mode = getMode;
-  console.log(mode);
-
-
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -47,7 +38,6 @@ const Component = ({ className, getCars, cars, getMode }) => {
         <CardImg className={styles.carImg} src={car.img[0]} alt="Card image cap" />
         <CardBody className={styles.carBody}>
           <CardTitle>{car.mark}</CardTitle>
-          {/* <CardSubtitle>{car.model}</CardSubtitle> */}
           <Button color="success" outline className={styles.btn} onClick={() => routeChange(car._id)} >Details</Button>
           <CardText>Only: {car.price}$</CardText>
         </CardBody>
@@ -74,7 +64,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-// export default connect(mapStateToProps,{getCars})(Component);
 export {
 
   Container as Homepage,

@@ -1,50 +1,43 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
-import { ListGroup, ListGroupItem, Badge, Input } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getCart, saveCartRequest } from '../../../redux/cartRedux';
+import { getCart, saveCartRequest, removeCartItem } from '../../../redux/cartRedux';
 import AmountWidget from '../../../components/features/AmountWidget/AmountWidget';
-
+import {
+  NavbarBrand,
+} from 'reactstrap';
 import styles from './Cart.module.scss';
 
-const Component = ({ className, cart, getCar, saveToCart }) => {
-  // const login = localStorage.getItem('login');
-  const [quantity, setQuantity] = useState();
-  let cartArray = []
-  // const cartProducts = JSON.parse(localStorage.getItem('cart'));
-  const mounted = useRef();
+const Component = ({ className, cart, removeItem }) => {
+  let cartArray = [];
+
   useEffect(() => {
-    if (!mounted.current) {
-      // do componentDidMount logic
-     
-      mounted.current = true;
-      
-    } else {
-      // do componentDidUpdate logic
-      cartArray = Array.from(cart.products)
+    cartArray = [];
+  }, [cart.products]);
 
-    }
-  });
+  const remove = (id) => {
 
-  
-  cartArray = Array.from(cart.products)
-  // console.log(cartArray)
+    removeItem(id);
+  };
+
+  cartArray = Array.from(cart.products);
   return (
-    // <div >
-    <ListGroup >
-
-   
-      {cart && cartArray.map(product => <ListGroupItem className={clsx(className, styles.root)} key={product.id} >{product.product}<Badge pill>{product.mark}  {product.model} x</Badge> <AmountWidget id={product.id} amount={product.amount}/><Badge pill>Total Price: {quantity ? product.price * quantity : product.price * product.amount}</Badge> </ListGroupItem>)}
-    </ListGroup>
-
+    <>
+      {cartArray && <ListGroup >
+        {cartArray ? cartArray.map(product => <ListGroupItem className={clsx(className, styles.root)} key={product.id} >{product.product}< NavbarBrand >{product.mark}  {product.model} </ NavbarBrand> {product.amount && <AmountWidget id={product.id} amount={product.amount} />}{product.price && < NavbarBrand >Total Price: {product.price * product.amount}</ NavbarBrand>}<div onClick={() => remove(product.id)} className={styles.exit}>X</div> </ListGroupItem>) : <NavbarBrand></NavbarBrand>}
+      </ListGroup>}
+    </>
   );
 };
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  cart: PropTypes.object,
+  removeItem: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -53,6 +46,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   saveToCart: (id, amount, mark, model, price, engine) => dispatch(saveCartRequest({ id, amount, mark, model, price, engine })),
+  removeItem: (id) => dispatch(removeCartItem(id)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useHistory } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron, Button, FormGroup, Label, Input } from 'reactstrap';
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { getSingleCar, currentCar } from '../../../redux/carRedux';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { saveCartRequest } from '../../../redux/cartRedux';
-import { Link } from 'react-router-dom';
 import styles from './Product.module.scss';
 
 const Component = ({ className, getCar, car, saveToCart }) => {
@@ -26,11 +25,6 @@ const Component = ({ className, getCar, car, saveToCart }) => {
     toggle();
   };
 
-
-  // const routeChange = () => {
-  //   let path = `/cart`;
-  // };
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -39,7 +33,6 @@ const Component = ({ className, getCar, car, saveToCart }) => {
     <div className={clsx(className, styles.root)}>
 
       <div>
-        {/* <Button color="danger" onClick={toggle}></Button> */}
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Product added to cart</ModalHeader>
           <ModalBody>
@@ -56,15 +49,14 @@ const Component = ({ className, getCar, car, saveToCart }) => {
       {car && <Jumbotron className={styles.jumbo}>
         <h1 className="display-4">{car.mark} {car.model}</h1>
         <Carusel />
-        {/* <CardImg top src={car.img} alt="Card image cap" /> */}
         <p className="lead">This is uniqe mashine cost only {car.price}, it is run by {car.engine} engine. We can assemble for you one form {car.year} calling extra attention to featured content or information.</p>
         <hr className="my-2" />
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p className="lead">
           <Button onClick={addToCart} outline color="success">Add To Cart</Button>
         </p>
-        <FormGroup>
-          <Label for="exampleSelect">Select</Label>
+        <FormGroup className={styles.choseNumber}>
+          <Label for="exampleSelect">number of cars</Label>
           <Input onChange={event => setQuantity(event.target.value)} className={styles.input} type="select" name="select" id="exampleSelect">
             <option>1</option>
             <option>2</option>

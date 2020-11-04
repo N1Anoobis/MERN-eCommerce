@@ -4,9 +4,24 @@
   padding: 30px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 30px;
 
-  .input {
-    margin: auto 30px;
-    max-width: 60px;
+  .exit {
+    border: 2px solid transparent;
+    padding: 2px;
+    border-radius: 70%;
+    font-weight: bolder;
+
+    &:hover {
+      color: red;
+      cursor: pointer;
+    }
+  }
+
+  .empty {
+    width: 500px;
+    height: 100px;
+    text-align: center;
   }
 }

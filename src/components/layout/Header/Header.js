@@ -38,7 +38,7 @@ const Component = ({ className, setViewPort, cart, showCart }) => {
   setViewPort(mode);
   return (
     <div className={clsx(className, styles.root)}>
-      {mode === 'desktop' || mode === 'tablet' ? <NavBar cart={cart} /> : <NavBarMobile cart={cart} mode={'mobile'} />}
+      {mode === 'desktop' || mode === 'tablet' ? <NavBar /> : <NavBarMobile mode={'mobile'} />}
     </div >
   );
 };
