@@ -9,7 +9,7 @@ import { getSingleCar, currentCar } from '../../../redux/carRedux';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { saveCartRequest } from '../../../redux/cartRedux';
 import styles from './Product.module.scss';
-
+import { NavLink } from 'react-router-dom';
 const Component = ({ className, getCar, car, saveToCart }) => {
 
   const [quantity, setQuantity] = useState('1');
@@ -40,7 +40,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
             Thank You for chosing our company
           </ModalBody>
           <ModalFooter>
-            <Button color="info" href="/cart">Go to cart</Button>{' '}
+            <NavLink className={styles.link} to={`/cart`}><Button color="info" >Go to cart</Button>{' '}</NavLink>
             <Button color="info" onClick={toggle}>Continioues</Button>
           </ModalFooter>
         </Modal>

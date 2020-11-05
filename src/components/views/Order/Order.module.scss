@@ -1,0 +1,11 @@
+@import '../../../styles/settings.scss';
+
+.root {
+    max-width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+    .check {
+        margin-left: 30px;
+        margin-bottom: 20px;
+    }
+}

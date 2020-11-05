@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+
 import 'font-awesome/css/font-awesome.min.css';
 import styles from './NavBarMobile.module.scss';
 

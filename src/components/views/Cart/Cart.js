@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getCart, saveCartRequest, removeCartItem } from '../../../redux/cartRedux';
 import AmountWidget from '../../../components/features/AmountWidget/AmountWidget';
@@ -19,7 +19,6 @@ const Component = ({ className, cart, removeItem }) => {
   }, [cart.products]);
 
   const remove = (id) => {
-
     removeItem(id);
   };
 
@@ -29,6 +28,7 @@ const Component = ({ className, cart, removeItem }) => {
       {cartArray && <ListGroup >
         {cartArray ? cartArray.map(product => <ListGroupItem className={clsx(className, styles.root)} key={product.id} >{product.product}< NavbarBrand >{product.mark}  {product.model} </ NavbarBrand> {product.amount && <AmountWidget id={product.id} amount={product.amount} />}{product.price && < NavbarBrand >Total Price: {product.price * product.amount}</ NavbarBrand>}<div onClick={() => remove(product.id)} className={styles.exit}>X</div> </ListGroupItem>) : <NavbarBrand></NavbarBrand>}
       </ListGroup>}
+      <NavLink className={styles.link} to={`/order`}><Button outline color="success">Order it!</Button></NavLink>
     </>
   );
 };
