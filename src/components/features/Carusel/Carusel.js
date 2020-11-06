@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption,
+import {
+  Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption,
 } from 'reactstrap';
 import { currentCar } from '../../../redux/carRedux';
 import { connect } from 'react-redux';
@@ -7,17 +8,17 @@ import PropTypes from 'prop-types';
 import styles from './Carusel.module.scss';
 import clsx from 'clsx';
 const Carusel = ({ className, car }) => {
-   
+  const [loaded, setLoaded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
   let carsImg = [];
 
-  if(car.img){
+  if (car.img) {
     carsImg = car.img;
   }
 
-  if(car){
+  if (car) {
     const items = [
       {
         src: carsImg[0] ? carsImg[2] : '',
@@ -56,8 +57,10 @@ const Carusel = ({ className, car }) => {
     const slides = items.map((item) => {
       return (
         <CarouselItem className={styles.box}
+          style={loaded ? {} : { display: 'none' }}
           onExiting={() => setAnimating(true)}
           onExited={() => setAnimating(false)}
+          onLoad={() => setLoaded(true)}
           key={item.src}
         >
           <img className={clsx(className, styles.item)} src={item.src} alt={item.altText} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { readCars, loadCars, getViewMode } from '../../../redux/carRedux';
@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import styles from './Homepage.module.scss';
 
 const Component = ({ className, getCars, cars, getMode }) => {
+  const [loaded, setLoaded] = useState(false);
   const history = useHistory();
   useEffect(() => {
     getCars();
@@ -35,7 +36,7 @@ const Component = ({ className, getCars, cars, getMode }) => {
     <div className={clsx(className, styles.root)}>
       {/* <Carusel/> */}
       {(cars) && carsArray.map((car) => <Card key={car._id} className={mode === 'desktop' ? styles.carDesktop : mode === 'mobile' ? styles.carMobile : styles.carTablet} >
-        <CardImg className={styles.carImg} src={car.img[0]} alt="Card image cap" />
+        <CardImg  style={loaded ? {} : { display: 'none' }}  className={styles.carImg} src={car.img[0]} alt="Card image cap"  onLoad={() => setLoaded(true)}/>
         <CardBody className={styles.carBody}>
           <CardTitle>{car.mark}</CardTitle>
           <Button color="success" outline className={styles.btn} onClick={() => routeChange(car._id)} >Details</Button>

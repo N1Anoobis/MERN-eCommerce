@@ -16,7 +16,7 @@ const AmountWidget = ({ className, amount, saveToCart, id }) => {
   };
 
   const minus = (id) => {
-    if (number > 0) {
+    if (number > 1) {
       setNumber(parseInt(number - 1));
     }
     saveToCart(id, 1, 'decrease');

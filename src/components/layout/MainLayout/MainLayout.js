@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 // import { Footer } from '../../views/Footer/Footer';
 import { Header } from '../../layout/Header/Header';
-
+// import { Splash } from '../../features/Splash/Splash';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -13,6 +13,7 @@ const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
     <Header />
     {children}
+    {/* <Splash /> */}
     {/* <Footer /> */}
   </div>
 );

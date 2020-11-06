@@ -11,7 +11,6 @@ import { saveCartRequest } from '../../../redux/cartRedux';
 import styles from './Product.module.scss';
 import { NavLink } from 'react-router-dom';
 const Component = ({ className, getCar, car, saveToCart }) => {
-
   const [quantity, setQuantity] = useState('1');
   const params = useParams();
 

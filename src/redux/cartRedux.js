@@ -30,7 +30,7 @@ export const saveCartRequest = data => {
       for (const product of cartProducts) {
         if (product.id === data.id) {
           if (data.minus) {
-            if (product.amount > 0) {
+            if (product.amount > 1) {
               product.amount = parseInt(product.amount) - parseInt(data.amount);
               localStorage.setItem('cart', JSON.stringify([...cartProducts]));
               dispatch(addProductToCart([...cartProducts]));

@@ -7,12 +7,16 @@
   top: 0;
   left: 0;
   width: 100vw;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .menuItem {
   color: white;
   opacity: .6;
-  margin: 0;
+  margin-bottom: 20px ;
 
   &:hover {
     opacity: 1;

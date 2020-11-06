@@ -4,19 +4,19 @@ import {
   Badge, h5,
 } from 'reactstrap';
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCart } from '../../../redux/cartRedux';
 
 import styles from './Navbar.module.scss';
 
 const NavBar = ({ className, cart }) => {
-{/* <NavLink className={styles.link} to={`/order`}><h5 outline color="success">Order it!</h5></NavLink> */}
+
   return (
     <nav className={clsx(className, styles.nav)}>
       <NavLink to={`/`}><h5 className={styles.menuItem}>Home</h5></NavLink>
       {cart.products[0] && <NavLink className={styles.cart} to={`/cart`}><h5 className={styles.menuItem}>Cart <Badge  color="danger" pill>{cart.products[0] && cart.products.length}</Badge></h5></NavLink>}
-      <h5 className={styles.login} href="https://google.com">Login</h5>
+      <NavLink className={styles.login} to={'/login'}><h5  >Login</h5></NavLink>
     </nav>
   );
 };

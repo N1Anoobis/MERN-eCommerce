@@ -15,6 +15,7 @@ import { Cart } from './components/views/Cart/Cart';
 
 // import { Footer } from './components/views/Footer/Footer';
 import { NotFound } from './components/views/NotFound/NotFound';
+
 const theme = createMuiTheme({
   palette: {
     primary: { main: '#2B4C6F' },

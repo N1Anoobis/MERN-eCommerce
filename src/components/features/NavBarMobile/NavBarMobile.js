@@ -7,24 +7,24 @@ import {
 } from 'reactstrap';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
+import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import styles from './NavBarMobile.module.scss';
 
 const NavBarMobile = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // console.log(isOpen)
+
   const toggle = () => {
     setIsOpen(!isOpen);
-
-
   };
+
   return (
     <nav className={clsx(className, styles.nav)}>
       <NavbarBrand className={styles.hamburger} onClick={toggle}>{isOpen ? <i className="fa fa-times"></i> : <i className="fa fa-bars"></i>}</NavbarBrand>
-      {isOpen ? <div className={styles.open}> <NavbarBrand className={styles.menuItem} href='/'>Home</NavbarBrand>
-        <NavbarBrand className={styles.menuItem} href='/cart'>Cart</NavbarBrand>
-        <NavbarBrand className={styles.login} href='https://google.com'>Login</NavbarBrand></div> : null}
+      {isOpen ? <div className={styles.open}>
+        <NavLink className={styles.menuItem} onClick={toggle} to={`/`}><h5>Home</h5></NavLink>
+        <NavLink className={styles.menuItem} onClick={toggle} to={'/cart'}><h5>Cart</h5></NavLink>
+        <NavLink className={styles.login} onClick={toggle} to='/login'><h5>Login</h5></NavLink></div> : null}
     </nav>
   );
 };

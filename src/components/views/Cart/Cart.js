@@ -10,8 +10,9 @@ import {
   NavbarBrand,
 } from 'reactstrap';
 import styles from './Cart.module.scss';
-
+import { useHistory } from 'react-router-dom';
 const Component = ({ className, cart, removeItem }) => {
+  const history = useHistory();
   let cartArray = [];
 
   useEffect(() => {
@@ -22,13 +23,28 @@ const Component = ({ className, cart, removeItem }) => {
     removeItem(id);
   };
 
+  const routeChange = () => {
+    let path = `/`;
+    history.push(path);
+  };
+
   cartArray = Array.from(cart.products);
+  if (!cartArray.length) {
+    routeChange();
+  }
   return (
     <>
-      {cartArray && <ListGroup >
-        {cartArray ? cartArray.map(product => <ListGroupItem className={clsx(className, styles.root)} key={product.id} >{product.product}< NavbarBrand >{product.mark}  {product.model} </ NavbarBrand> {product.amount && <AmountWidget id={product.id} amount={product.amount} />}{product.price && < NavbarBrand >Total Price: {product.price * product.amount}</ NavbarBrand>}<div onClick={() => remove(product.id)} className={styles.exit}>X</div> </ListGroupItem>) : <NavbarBrand></NavbarBrand>}
-      </ListGroup>}
-      <NavLink className={styles.link} to={`/order`}><Button outline color="success">Order it!</Button></NavLink>
+      {cartArray && <ListGroup className={clsx(className, styles.root)}>
+        {cartArray.map(product =>
+          <ListGroupItem className={styles.single} key={product.id} >{product.product}
+            < NavbarBrand >{product.mark}  {product.model} </ NavbarBrand>
+            {product.amount && <AmountWidget id={product.id} amount={product.amount} />}
+            {product.price && < NavbarBrand >  Total Price: {product.price * product.amount}</ NavbarBrand>}
+            <div onClick={() => remove(product.id)} className={styles.exit}>X</div>
+          </ListGroupItem>)}
+      </ListGroup>
+      }
+      {cartArray.length ? <NavLink className={styles.link} to={`/order`}><Button outline color="success">Order it!</Button></NavLink> : null}
     </>
   );
 };
