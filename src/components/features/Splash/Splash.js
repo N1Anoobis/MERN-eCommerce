@@ -9,9 +9,15 @@ import clsx from 'clsx';
 import styles from './Splash.module.scss';
 
 const Component = ({ className, children }) => {
+
   const [flag, setFlag] = useState(false);
   const hideSplash = () => {
+    scroolChange();
     setFlag(true);
+  };
+
+  const scroolChange = () => {
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -23,7 +29,7 @@ const Component = ({ className, children }) => {
           Your 3d-printed Car is just click away
         </h2>
         <div >     <Particles
-        canvasClassName={styles.part}
+          canvasClassName={styles.part}
           params={{
             'particles': {
               'number': {
