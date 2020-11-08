@@ -1,42 +1,172 @@
-// import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Particles from 'react-particles-js';
+import clsx from 'clsx';
 
-// import clsx from 'clsx';
+// import { connect } from 'react-redux';
+// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+
+import styles from './Splash.module.scss';
+
+const Component = ({ className, children }) => {
+  const [flag, setFlag] = useState(false);
+  const hideSplash = () => {
+    setFlag(true);
+  };
+
+  return (
+    <div className={clsx(className, styles.root)} onClick={hideSplash} >
+
+      <div className={flag ? styles.hide : styles.show}>
+
+        <h2 className={styles.header}>
+          Your 3d-printed Car is just click away
+        </h2>
+        <div >     <Particles
+        canvasClassName={styles.part}
+          params={{
+            'particles': {
+              'number': {
+                'value': 120,
+                'density': {
+                  'enable': true,
+                  'value_area': 800,
+                },
+              },
+              'color': {
+                'value': '#ffffff',
+              },
+              'shape': {
+                'type': 'circle',
+                'stroke': {
+                  'width': 0,
+                  'color': '#000000',
+                },
+                'polygon': {
+                  'nb_sides': 5,
+                },
+                // 'image': {
+                //   'src': 'img/github.svg',
+                //   'width': 100,
+                //   'height': 100
+                // }
+              },
+              'opacity': {
+                'value': 0.5,
+                'random': false,
+                'anim': {
+                  'enable': false,
+                  'speed': 1,
+                  'opacity_min': 0.1,
+                  'sync': false,
+                },
+              },
+              'size': {
+                'value': 1,
+                'random': true,
+                'anim': {
+                  'enable': false,
+                  'speed': 40,
+                  'size_min': 0.1,
+                  'sync': false,
+                },
+              },
+              'line_linked': {
+                'enable': true,
+                'distance': 150,
+                'color': '#ffffff',
+                'opacity': 0.4,
+                'width': 1,
+              },
+              'move': {
+                'enable': true,
+                'speed': 6,
+                'direction': 'none',
+                'random': false,
+                'straight': false,
+                'out_mode': 'out',
+                'attract': {
+                  'enable': false,
+                  'rotateX': 600,
+                  'rotateY': 1200,
+                },
+              },
+            },
+            'interactivity': {
+              'detect_on': 'canvas',
+              'events': {
+                'onhover': {
+                  'enable': true,
+                  'mode': 'repulse',
+                },
+                'onclick': {
+                  'enable': true,
+                  'mode': 'push',
+                },
+                'resize': true,
+              },
+              'modes': {
+                'grab': {
+                  'distance': 100,
+                  'line_linked': {
+                    'opacity': 1,
+                  },
+                },
+                'bubble': {
+                  'distance': 400,
+                  'size': 40,
+                  'duration': 2,
+                  'opacity': 8,
+                  'speed': 3,
+                },
+                'repulse': {
+                  'distance': 100,
+                },
+                'push': {
+                  'particles_nb': 4,
+                },
+                'remove': {
+                  'particles_nb': 2,
+                },
+              },
+            },
+            'retina_detect': true,
+            'config_demo': {
+              'hide_card': false,
+              'background_color': '#b61924',
+
+              'background_position': '50% 50%',
+              'background_repeat': 'no-repeat',
+              'background_size': 'cover',
+            },
+
+          }}
 
 
+        /></div>
 
-// import styles from './Splash.module.scss';
+      </div>
+    </div >
+  );
+};
 
-// const Component = ({ className, children }) => {
+Component.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
 
+// const mapStateToProps = state => ({
+//   someProp: reduxSelector(state),
+// });
 
+// const mapDispatchToProps = dispatch => ({
+//   someAction: arg => dispatch(reduxActionCreator(arg)),
+// });
 
-//   return (
-//     <div className={clsx(className, styles.root)}>
+// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-//       <div className={styles.splash}>
-//         <div className={styles.topBar}>
-//         </div>
-
-//         <h1 className={styles.splashh1}>Ultimate Frisbee App</h1>
-
-//         <div className={styles.bottomBar}>
-//         </div>
-//       </div>
-
-
-//     </div>
-//   );
-// };
-// Component.propTypes = {
-//   children: PropTypes.node,
-//   className: PropTypes.string,
-// };
-
-
-
-// export {
-//   Component as Splash,
-
-//   Component as SplashComponent,
-// };
+export {
+  Component as Splash,
+  // Container as Splash,
+  Component as SplashComponent,
+};

@@ -6,11 +6,11 @@ import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import isPostalCode from 'validator/lib/isPostalCode';
 import { connect } from 'react-redux';
-import { getCart } from '../../../redux/cartRedux';
+import { getCart, newOrder, removeCart } from '../../../redux/cartRedux';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 
-const Component = ({ className, cart }) => {
+const Component = ({ className, cart, sendOrderRequest }) => {
 
   const [formData, setFormData] = useState({
     name: '',
@@ -22,6 +22,37 @@ const Component = ({ className, cart }) => {
     errorMsg: false,
   });
 
+  const sendOrderToDB = () => {
+    // for (const key in formData) {
+      
+    //     const element = formData[key];
+    //     console.log(element)
+     
+    // }
+
+    // const dataToSend = formData;
+    // console.log(dataToSend);
+    const data = {
+      products: cart.products,
+      client: {name: formData.name,
+        email: formData.email,
+        address: formData.address,
+        city: formData.city,
+        zip: formData.zip,
+      },
+    };
+
+    sendOrderRequest(data);
+    setFormData({
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      zip: '',
+      check: '',
+    });
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,7 +62,7 @@ const Component = ({ className, cart }) => {
 
   const handleSubmit = (e) => {
 
-    const {name, email, address, city, zip, check} = formData;
+    const { name, email, address, city, zip, check } = formData;
     e.preventDefault();
     if (isEmpty(name) || isEmpty(email) || isEmpty(address) || isEmpty(city) || isEmpty(zip) || isEmpty(check)) {
       setFormData({
@@ -41,7 +72,7 @@ const Component = ({ className, cart }) => {
       setFormData({
         ...formData, errorMsg: 'Invalide email',
       });
-    } else if (!isPostalCode(zip,'any')) {
+    } else if (!isPostalCode(zip, 'any')) {
       setFormData({
         ...formData, errorMsg: 'Invalide postcode',
       });
@@ -53,6 +84,7 @@ const Component = ({ className, cart }) => {
       setFormData({
         ...formData, errorMsg: false,
       });
+      sendOrderToDB();
     }
   };
 
@@ -107,6 +139,8 @@ const Component = ({ className, cart }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  cart: PropTypes.object,
+  sendOrderRequest: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -114,7 +148,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // someAction: arg => dispatch(reduxActionCreator(arg)),
+  sendOrderRequest: data => dispatch(newOrder(data)),
+  clearLocalStorage: () => dispatch(removeCart()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

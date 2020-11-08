@@ -1,4 +1,4 @@
-
+import Axios from 'axios';
 /* selectors */
 export const getCart = ({ cart }) => cart;
 
@@ -12,6 +12,7 @@ const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 const ADD_TO_CART = createActionName('ADD_TO_CART');
 const REMOVE_FROM_CART = createActionName('REMOVE_FROM_CART');
+const SEND_ORDER = createActionName('SEND_ORDER');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
@@ -19,7 +20,7 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const addProductToCart = payload => ({ payload, type: ADD_TO_CART });
 export const removeProductFromCart = payload => ({ payload, type: REMOVE_FROM_CART });
-
+export const sendOrder = payload => ({ payload, type: SEND_ORDER });
 
 /* thunk creators */
 export const saveCartRequest = data => {
@@ -57,6 +58,12 @@ export const saveCartRequest = data => {
   };
 };
 
+export const removeCart = () => {
+  return dispatch => {
+    localStorage.removeItem('login');
+  };
+};
+
 export const removeCartItem = (id) => {
 
   return dispatch => {
@@ -66,6 +73,8 @@ export const removeCartItem = (id) => {
     for (const product of cartProducts) {
       if (product.id !== id) {
         newCart.push(product);
+      } else {
+        dispatch(removeProductFromCart(product));
       }
     }
     localStorage.removeItem('cart');
@@ -81,6 +90,26 @@ export const loadCartRequest = () => {
     localStorage.getItem('cart') ?
       getSavedCart = JSON.parse(localStorage.getItem('cart')) : getSavedCart = [];
     dispatch(addProductToCart(getSavedCart));
+  };
+};
+
+export const newOrder = data => {
+  return async dispatch => {
+    dispatch(fetchStarted());
+    try {
+      let res = await Axios.post(
+        `http://localhost:8000/api/order`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      dispatch(sendOrder(res.data));
+    } catch (e) {
+      dispatch(fetchError(e.message));
+    }
   };
 };
 
@@ -117,10 +146,16 @@ export const reducer = (statePart = [], action = {}) => {
         products: action.payload,
       };
     }
-    case REMOVE_FROM_CART: {
+    // case REMOVE_FROM_CART: {
+    //   return {
+    //     ...statePart,
+    //     products: statePart.products.filter(product => product._id !== action.payload._id),
+    //   };
+    // }
+    case SEND_ORDER: {
       return {
         ...statePart,
-        products: statePart.products.filter(product => product._id !== action.payload._id),
+        products: [],
       };
     }
     default:

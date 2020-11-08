@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { setGlobalViewPort } from '../../../redux/carRedux';
 import { getCart, loadCartRequest } from '../../../redux/cartRedux';
 import styles from './Header.module.scss';
-
 const Component = ({ className, setViewPort, cart, showCart }) => {
 
   let mode = null;
@@ -20,7 +19,7 @@ const Component = ({ className, setViewPort, cart, showCart }) => {
     mode = 'desktop';
   }
 
- 
+
   useLayoutEffect(() => {
 
     showCart();

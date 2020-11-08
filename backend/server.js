@@ -5,10 +5,8 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const carRoutes = require('./routes/api/car.routes');
-const cartRoutes = require('./routes/api/cart.routes');
+const orderRoutes = require('./routes/api/order.routes');
 const app = express();
-
-
 
 /* MIDDLEWARE */
 app.use(cors());
@@ -17,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 /* API ENDPOINTS */
 app.use('/api', carRoutes);
-app.use('/api', cartRoutes);
+app.use('/api', orderRoutes);
 
 /* API ERROR PAGES */
 app.use('/api', (req, res) => {
@@ -30,7 +28,6 @@ mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
-
 
 mongoose.connect(db);
 

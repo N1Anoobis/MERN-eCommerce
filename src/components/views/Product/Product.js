@@ -27,7 +27,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-
+  console.log()
   return (
     <div className={clsx(className, styles.root)}>
 
@@ -48,14 +48,14 @@ const Component = ({ className, getCar, car, saveToCart }) => {
       {car && <Jumbotron className={styles.jumbo}>
         <h1 className="display-4">{car.mark} {car.model}</h1>
         <Carusel />
-        <p className="lead">This is uniqe mashine cost only {car.price}, it is run by {car.engine} engine. We can assemble for you one form {car.year} calling extra attention to featured content or information.</p>
+        <p className="lead">This is uniqe mashine cost only {car.price}$, it is run by {car.engine} engine. We can assemble for you model form {car.year} calling extra attention to details.</p>
         <hr className="my-2" />
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p>Cars are our passion. We do everything to make customers happy. In case of any questions please contact us.</p>
         <p className="lead">
           <Button onClick={addToCart} outline color="success">Add To Cart</Button>
         </p>
         <FormGroup className={styles.choseNumber}>
-          <Label for="exampleSelect">number of cars</Label>
+          <Label for="exampleSelect">How many you want ?</Label>
           <Input onChange={event => setQuantity(event.target.value)} className={styles.input} type="select" name="select" id="exampleSelect">
             <option>1</option>
             <option>2</option>
