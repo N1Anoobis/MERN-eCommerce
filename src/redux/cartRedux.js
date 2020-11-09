@@ -27,7 +27,10 @@ export const saveCartRequest = data => {
   return dispatch => {
     const cartProducts = JSON.parse(localStorage.getItem('cart'));
     if (cartProducts) {
-
+      if (data[1] === 'request') {
+        localStorage.setItem('cart', JSON.stringify([...cartProducts, data]));
+        dispatch(addProductToCart([...cartProducts, data]));
+      }
       for (const product of cartProducts) {
         if (product.id === data.id) {
           if (data.minus) {
@@ -60,7 +63,7 @@ export const saveCartRequest = data => {
 
 export const removeCart = () => {
   return dispatch => {
-    localStorage.removeItem('login');
+    localStorage.removeItem('cart');
   };
 };
 

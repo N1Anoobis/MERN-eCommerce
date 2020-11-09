@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Particles from 'react-particles-js';
 import clsx from 'clsx';
-
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
 import styles from './Splash.module.scss';
 
-const Component = ({ className, children }) => {
+const Component = ({ className }) => {
 
   const [flag, setFlag] = useState(false);
   const hideSplash = () => {
@@ -51,11 +47,6 @@ const Component = ({ className, children }) => {
                 'polygon': {
                   'nb_sides': 5,
                 },
-                // 'image': {
-                //   'src': 'img/github.svg',
-                //   'width': 100,
-                //   'height': 100
-                // }
               },
               'opacity': {
                 'value': 0.5,
@@ -145,12 +136,8 @@ const Component = ({ className, children }) => {
               'background_repeat': 'no-repeat',
               'background_size': 'cover',
             },
-
           }}
-
-
         /></div>
-
       </div>
     </div >
   );
@@ -161,18 +148,7 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
 export {
   Component as Splash,
-  // Container as Splash,
   Component as SplashComponent,
 };

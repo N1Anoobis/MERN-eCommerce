@@ -28,6 +28,7 @@
     font-weight: bolder;
     font-size: 40px;
     font-weight: bold;
+
     &:hover {
       color: red;
       cursor: pointer;
@@ -52,11 +53,40 @@
 .special {
   display: flex;
   flex-direction: column;
-  .specialBtn{
+
+  .specialBtn {
     margin: 0 auto;
+
     &:hover {
       cursor: pointer;
       color: green;
+    }
+  }
+}
+
+.cardRequest {
+  display: flex;
+  // justify-content: space-between;
+  flex-direction: row;
+
+  .input {
+    width: 70%;
+    // display: block;
+  }
+
+  .btn {
+    border-radius: 10px;
+    // width: 30%;
+    padding: 6% 11%;
+    margin: auto;
+
+    text-align: center;
+    transition: .3s;
+
+    &:hover {
+      // background-color: gray;
+      cursor: pointer;
+      color: darkgreen;
     }
   }
 }

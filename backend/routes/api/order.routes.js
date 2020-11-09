@@ -7,7 +7,7 @@ const Order = require('../../models/order.model');
 router.post('/order', async (req, res) => {
   
   try {
-    console.log(req.session) 
+    console.log(req.body) 
 
 
       const newOrder = new Order({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import clsx from 'clsx';
@@ -9,8 +9,22 @@ import { connect } from 'react-redux';
 import { getCart, newOrder, removeCart } from '../../../redux/cartRedux';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
+import { Redirect } from 'react-router-dom';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const Component = ({ className, cart, sendOrderRequest }) => {
+const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
+
+
+  useEffect(() => {
+    console.log(cart)
+
+  }, [cart]);
+
+  let cartArray = Array.from(cart.products);
+  console.log(cartArray)
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,23 +37,27 @@ const Component = ({ className, cart, sendOrderRequest }) => {
   });
 
   const sendOrderToDB = () => {
-    // for (const key in formData) {
-      
-    //     const element = formData[key];
-    //     console.log(element)
-     
-    // }
 
-    // const dataToSend = formData;
-    // console.log(dataToSend);
+    let carsArray = [];
+    let specialRequest = '';
+    const cartArray = Array.from(cart.products);
+    for (const iterator of cartArray) {
+      if (iterator[1] !== 'request') {
+        carsArray.push(iterator);
+      } else {
+        specialRequest = iterator[0];
+      }
+    }
     const data = {
-      products: cart.products,
-      client: {name: formData.name,
+      products: carsArray,
+      client: {
+        name: formData.name,
         email: formData.email,
         address: formData.address,
         city: formData.city,
         zip: formData.zip,
       },
+      request: specialRequest,
     };
 
     sendOrderRequest(data);
@@ -51,6 +69,8 @@ const Component = ({ className, cart, sendOrderRequest }) => {
       zip: '',
       check: '',
     });
+    clearLocalStorage();
+    toggle();
   };
 
   const handleChange = (e) => {
@@ -89,58 +109,74 @@ const Component = ({ className, cart, sendOrderRequest }) => {
   };
 
   return (
-    <div className={clsx(className, styles.root)}>
-      {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
-      <Form
-        onSubmit={handleSubmit}
-      >
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="examplePassword">Name</Label>
-              <Input type="text" name="name" id="name" placeholder="name placeholder" onChange={handleChange} />
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" onChange={handleChange} />
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup>
-          <Label for="exampleAddress">Address</Label>
-          <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St" onChange={handleChange} />
-        </FormGroup>
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="exampleCity">City</Label>
-              <Input type="text" name="city" id="exampleCity" onChange={handleChange} />
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <FormGroup>
-              <Label for="exampleZip">Post-Code</Label>
-              <Input type="text" name="zip" id="exampleZip" onChange={handleChange} />
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup className={styles.check} check>
-          <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
-          <Label for="exampleCheck" check>Check me out</Label>
-        </FormGroup>
-        <Button>Buy it!</Button>
-      </Form>
-    </div>
-  );
+    <>
+      <div>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>Special request added to cart</ModalHeader>
+          <ModalBody>
+            You have just aded special request to cart. You can have 1 special request. You can allways remove it and add another one.
+            Thank You for chosing our company
+          </ModalBody>
+          <ModalFooter>
+            <Button color="info" onClick={toggle}>Continue</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
 
+      <div className={clsx(className, styles.root)}>
+        {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
+        {cart ? <Form
+          onSubmit={handleSubmit}
+        >
+          <Row form>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="examplePassword">Name</Label>
+                <Input type="text" name="name" id="name" placeholder="name placeholder" onChange={handleChange} />
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="exampleEmail">Email</Label>
+                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" onChange={handleChange} />
+              </FormGroup>
+            </Col>
+          </Row>
+          <FormGroup>
+            <Label for="exampleAddress">Address</Label>
+            <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St" onChange={handleChange} />
+          </FormGroup>
+          <Row form>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="exampleCity">City</Label>
+                <Input type="text" name="city" id="exampleCity" onChange={handleChange} />
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <Label for="exampleZip">Post-Code</Label>
+                <Input type="text" name="zip" id="exampleZip" onChange={handleChange} />
+              </FormGroup>
+            </Col>
+          </Row>
+          <FormGroup className={styles.check} check>
+            <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
+            <Label for="exampleCheck" check>Check me out</Label>
+          </FormGroup>
+          <Button>Buy it!</Button>
+        </Form> : <Redirect to='/' />}
+      </div>
+    </>
+  );
 };
+
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   cart: PropTypes.object,
   sendOrderRequest: PropTypes.func,
+  clearLocalStorage: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

@@ -40,7 +40,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
           </ModalBody>
           <ModalFooter>
             <NavLink className={styles.link} to={`/cart`}><Button color="info" >Go to cart</Button>{' '}</NavLink>
-            <Button color="info" onClick={toggle}>Continioues</Button>
+            <Button color="info" onClick={toggle}>Continue</Button>
           </ModalFooter>
         </Modal>
       </div>
