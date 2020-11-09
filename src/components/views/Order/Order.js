@@ -6,23 +6,23 @@ import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import isPostalCode from 'validator/lib/isPostalCode';
 import { connect } from 'react-redux';
-import { getCart, newOrder, removeCart } from '../../../redux/cartRedux';
+import { getCart, newOrder, removeCart, loadCartRequest } from '../../../redux/cartRedux';
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 import { Redirect } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
+const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadCart }) => {
 
 
+  let cartArray = [];
   useEffect(() => {
-    console.log(cart)
+    cartArray = [];
+  }, [cart.products]);
 
-  }, [cart]);
 
-  let cartArray = Array.from(cart.products);
-  console.log(cartArray)
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState('');
 
   const toggle = () => setModal(!modal);
 
@@ -36,6 +36,19 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
     errorMsg: false,
   });
 
+  const redirect = () => {
+    sendOrderRequest(data);
+    setFormData({
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      zip: '',
+      check: '',
+    });
+    clearLocalStorage();
+  };
+
   const sendOrderToDB = () => {
 
     let carsArray = [];
@@ -48,6 +61,7 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
         specialRequest = iterator[0];
       }
     }
+
     const data = {
       products: carsArray,
       client: {
@@ -59,18 +73,10 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
       },
       request: specialRequest,
     };
-
-    sendOrderRequest(data);
-    setFormData({
-      name: '',
-      email: '',
-      address: '',
-      city: '',
-      zip: '',
-      check: '',
-    });
-    clearLocalStorage();
+    setData(data)
     toggle();
+    
+
   };
 
   const handleChange = (e) => {
@@ -108,6 +114,8 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
     }
   };
 
+  cartArray = Array.from(cart.products);
+
   return (
     <>
       <div>
@@ -118,14 +126,14 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
             Thank You for chosing our company
           </ModalBody>
           <ModalFooter>
-            <Button color="info" onClick={toggle}>Continue</Button>
+            <Button color="info" onClick={redirect}>Continue</Button>
           </ModalFooter>
         </Modal>
       </div>
 
-      <div className={clsx(className, styles.root)}>
+      {(!cartArray[0]) ? <Redirect to='/' /> : <div className={clsx(className, styles.root)}>
         {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
-        {cart ? <Form
+        <Form
           onSubmit={handleSubmit}
         >
           <Row form>
@@ -165,8 +173,8 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
             <Label for="exampleCheck" check>Check me out</Label>
           </FormGroup>
           <Button>Buy it!</Button>
-        </Form> : <Redirect to='/' />}
-      </div>
+        </Form>
+      </div>}
     </>
   );
 };
@@ -186,6 +194,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   sendOrderRequest: data => dispatch(newOrder(data)),
   clearLocalStorage: () => dispatch(removeCart()),
+  loadCart: () => dispatch(loadCartRequest()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
