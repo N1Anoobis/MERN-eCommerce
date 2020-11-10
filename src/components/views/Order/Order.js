@@ -10,22 +10,19 @@ import { getCart, newOrder, removeCart, loadCartRequest } from '../../../redux/c
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 import { Redirect } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron, Card, div } from 'reactstrap';
 
-const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadCart }) => {
-
+const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
 
   let cartArray = [];
   useEffect(() => {
+    window.scrollTo(0, 0);
     cartArray = [];
   }, [cart.products]);
 
-
   const [modal, setModal] = useState(false);
   const [data, setData] = useState('');
-
   const toggle = () => setModal(!modal);
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -73,9 +70,9 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadC
       },
       request: specialRequest,
     };
-    setData(data)
+    setData(data);
     toggle();
-    
+
 
   };
 
@@ -115,14 +112,15 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadC
   };
 
   cartArray = Array.from(cart.products);
-
+  cartArray = cart.products.filter(prod => (!Array.isArray(prod)));
+  console.log(cartArray)
   return (
     <>
       <div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Your order has been submited</ModalHeader>
           <ModalBody>
-            We are very happy that you like our product. It will be delivered to you by drons in 7 days. 
+            We are very happy that you like our product. It will be delivered to you by drons in 7 days.
             Thank You for chosing our company
           </ModalBody>
           <ModalFooter>
@@ -132,48 +130,55 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadC
       </div>
 
       {(!cartArray[0]) ? <Redirect to='/' /> : <div className={clsx(className, styles.root)}>
-        {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
-        <Form
-          onSubmit={handleSubmit}
-        >
-          <Row form>
-            <Col md={6}>
-              <FormGroup>
-                <Label for="examplePassword">Name</Label>
-                <Input type="text" name="name" id="name" placeholder="name placeholder" onChange={handleChange} />
-              </FormGroup>
-            </Col>
-            <Col md={6}>
-              <FormGroup>
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" onChange={handleChange} />
-              </FormGroup>
-            </Col>
-          </Row>
-          <FormGroup>
-            <Label for="exampleAddress">Address</Label>
-            <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St" onChange={handleChange} />
-          </FormGroup>
-          <Row form>
-            <Col md={6}>
-              <FormGroup>
-                <Label for="exampleCity">City</Label>
-                <Input type="text" name="city" id="exampleCity" onChange={handleChange} />
-              </FormGroup>
-            </Col>
-            <Col md={2}>
-              <FormGroup>
-                <Label for="exampleZip">Post-Code</Label>
-                <Input type="text" name="zip" id="exampleZip" onChange={handleChange} />
-              </FormGroup>
-            </Col>
-          </Row>
-          <FormGroup className={styles.check} check>
-            <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
-            <Label for="exampleCheck" check>Check me out</Label>
-          </FormGroup>
-          <Button>Buy it!</Button>
-        </Form>
+        <Card className={styles.card}>
+          {cartArray.map(item => <div key={item.id} className={styles.recap}>
+            <div>{item.amount} </div><div>{item.mark}</div><div>{item.model}</div>
+          </div>)}
+        </Card>
+        <Jumbotron className={styles.jumbo}>
+          {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
+          <Form
+            onSubmit={handleSubmit}
+          >
+            <Row form>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="examplePassword">Name</Label>
+                  <Input className={styles.input} minLength="2" maxLength="12" type="text" name="name" id="name" placeholder="Your name" onChange={handleChange} />
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="exampleEmail">Email</Label>
+                  <Input className={styles.input} type="email" pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$" name="email" id="exampleEmail" placeholder="your email" onChange={handleChange} />
+                </FormGroup>
+              </Col>
+            </Row>
+            <FormGroup>
+              <Label for="exampleAddress">Address</Label>
+              <Input className={styles.input} minLength="6" maxLength="22" type="text" name="address" id="exampleAddress" placeholder="delivery aderss" onChange={handleChange} />
+            </FormGroup>
+            <Row form>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="exampleCity">City</Label>
+                  <Input className={styles.input} minLength="3" maxLength="16" type="text" name="city" id="exampleCity" placeholder="your city" onChange={handleChange} />
+                </FormGroup>
+              </Col>
+              <Col md={2}>
+                <FormGroup>
+                  <Label for="exampleZip">Post-Code</Label>
+                  <Input className={styles.input} type="text" name="zip" id="exampleZip" placeholder="your post-code" onChange={handleChange} />
+                </FormGroup>
+              </Col>
+            </Row>
+            <FormGroup className={styles.check} check>
+              <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
+              <Label for="exampleCheck" check>Check me out</Label>
+            </FormGroup>
+            <Button>Buy it!</Button>
+          </Form>
+        </Jumbotron>
       </div>}
     </>
   );

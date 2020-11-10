@@ -28,7 +28,7 @@ const Carusel = ({ className, car }) => {
     const items = [
       {
         // src: carsImg[0] ? carsImg[2] : '',
-        src: loader ? carsImg[2] : 'https://media.giphy.com/media/o8kbrEd42tSKc/giphy.gif',
+        src: loader ? carsImg[2] : 'https://media.giphy.com/media/hTxmxQmIqmYUkKwZT0/giphy.gif',
         altText: '):',
         caption: 'Quality',
       },

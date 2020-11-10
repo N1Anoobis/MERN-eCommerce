@@ -2,7 +2,6 @@
 
 .root {
   cursor: pointer;
-
   .show {
     min-height: 100%;
     position: fixed;
@@ -16,12 +15,9 @@
 
   .hide {
     transition: .3s;
-    // transform: translateY(-100%);
     display: none;
-    // position: absolute;
-
     .part {
-    
+
       background-color: black;
     }
   }
@@ -30,7 +26,7 @@
     position: fixed;
     color: white;
     text-align: center;
-    margin: 25% 25%;
+    margin: 20% 35%;
     transition: .6s;
 
     &:hover {
@@ -40,119 +36,5 @@
 
   .part {
     height: 100vh !important;
-  }
-}
-
-@keyframes init {
-  0% {
-    width: 0px;
-    height: 0px;
-  }
-
-  100% {
-    width: 56px;
-    height: 56px;
-    margin-top: 0px;
-    opacity: 1;
-  }
-}
-
-@keyframes puff {
-  0% {
-    top: 100%;
-    height: 0px;
-    padding: 0px;
-  }
-
-  100% {
-    top: 50%;
-    height: 100%;
-    padding: 0px 100%;
-  }
-}
-
-@keyframes borderRadius {
-  0% {
-    border-radius: 50%;
-  }
-
-  100% {
-    border-radius: 0px;
-  }
-}
-
-@keyframes moveDown {
-  0% {
-    top: 50%;
-  }
-
-  50% {
-    top: 40%;
-  }
-
-  100% {
-    top: 100%;
-  }
-}
-
-@keyframes moveUp {
-  0% {
-    // background: #311b92;
-    top: 100%;
-  }
-
-  50% {
-    top: 40%;
-  }
-
-  100% {
-    top: 50%;
-    // background: #039be5;
-  }
-}
-
-@keyframes materia {
-  0% {
-    // background: #039be5;
-  }
-
-  50% {
-    // background: #039be5;
-    // top: 26px;
-  }
-
-  100% {
-    // background: #311b92;
-    width: 100vw;
-    height: 100vh;
-    // border-radius: 0px;
-    // min-height: 100vh;
-    // position: fixed;
-    // top: 0;
-    // bottom: 0;
-    // left: 0;
-    // right: 0;
-    background-color: black;
-    // z-index: 999;
-  }
-}
-
-@keyframes moveIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
   }
 }

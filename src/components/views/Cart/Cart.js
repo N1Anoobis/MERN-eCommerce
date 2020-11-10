@@ -16,18 +16,15 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
   // const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [request, setRequest] = useState('');
-
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
-
-  // console.log(request);
   const switched = () => setIsOpen(!isOpen);
 
   let flag = false;
   let cartArray = [];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     cartArray = [];
   }, [cart.products]);
 
@@ -41,7 +38,6 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
       setRequest('');
       toggle();
     }
-
   };
 
   cartArray = Array.from(cart.products);
@@ -54,7 +50,6 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
 
   return (
     <>
-
       <div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Special request added to cart</ModalHeader>
@@ -68,11 +63,10 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
         </Modal>
       </div>
 
-
       {cartArray.length ? <ListGroup className={clsx(className, styles.root)}>
         {cartArray.map(product =>
-          <ListGroupItem className={styles.single} key={product.id?product.id:product[0]} >
-            {product[1] === 'request' ? < NavbarBrand  >{product[0]}  </ NavbarBrand> :
+          <ListGroupItem className={styles.single} key={product.id ? product.id : product[0]} >
+            {product[1] === 'request' ? < NavbarBrand className={styles.text}>{product[0]}  </ NavbarBrand> :
               < NavbarBrand >{product.mark}  {product.model} </ NavbarBrand>}
             {product.amount && <AmountWidget id={product.id} amount={product.amount} />}
             {product.price && < NavbarBrand >  Total: {product.price * product.amount} $</ NavbarBrand>}
@@ -80,7 +74,7 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
             <div onClick={() => remove(product.id)} className={styles.exit}>X</div>
           </ListGroupItem>)}
         {flag ? '' : <div className={styles.special}>
-          <div className={styles.specialBtn} onClick={switched}>Feel free to add special request</div>
+          {!isOpen ? <div className={styles.specialBtn} onClick={switched}>Click me to add special request</div> : <div className={styles.specialBtn} onClick={switched}>^^^</div>}
           <Collapse isOpen={isOpen}>
             <Card className={styles.cardRequest}>
               <Input className={styles.input} type="textarea" name="valueuest" id="valueuest" value={request} onChange={e => setRequest(e.target.value)} />

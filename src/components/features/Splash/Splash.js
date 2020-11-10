@@ -22,7 +22,7 @@ const Component = ({ className }) => {
       <div className={flag ? styles.hide : styles.show}>
 
         <h2 className={styles.header}>
-          Your 3d-printed Car is just click away
+          Your 3d-printed Car
         </h2>
         <div >     <Particles
           canvasClassName={styles.part}

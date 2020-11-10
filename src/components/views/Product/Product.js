@@ -15,7 +15,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
   const params = useParams();
 
   useEffect(() => {
-
+    window.scrollTo(0, 0);
     getCar(params.id);
   }, []);
 
