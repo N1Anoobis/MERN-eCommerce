@@ -1,0 +1,49 @@
+@import '../../../styles/settings.scss';
+
+.root {
+width: 80%;
+font-size: 15px;
+
+    .special {
+        display: flex;
+        flex-direction: column;
+        color: white;
+      
+        .specialBtn {
+          margin: 0 auto;
+      
+          &:hover {
+            cursor: pointer;
+            color: green;
+          }
+        }
+      }
+      
+      .cardRequest {
+        // padding: 5px 0;
+        display: flex;
+        // justify-content: space-between;
+        flex-direction: row;
+      
+        .input {
+          width: 70%;
+          // display: block;
+        }
+      
+        .btn {
+          border-radius: 10px;
+          // width: 30%;
+          padding: 6% 11%;
+          margin: auto;
+          color: black;
+          text-align: center;
+          transition: .3s;
+      
+          &:hover {
+            // background-color: gray;
+            cursor: pointer;
+            color: darkgreen;
+          }
+        }
+      }
+}

@@ -13,14 +13,14 @@ import { NavLink } from 'react-router-dom';
 const Component = ({ className, getCar, car, saveToCart }) => {
   const [quantity, setQuantity] = useState('1');
   const params = useParams();
-
+  let request = '';
   useEffect(() => {
     window.scrollTo(0, 0);
     getCar(params.id);
   }, []);
 
   const addToCart = () => {
-    saveToCart(car._id, quantity, car.mark, car.model, car.price, car.engine,);
+    saveToCart(car._id, quantity, car.mark, car.model, car.price, car.engine, request);
     toggle();
   };
 
@@ -83,13 +83,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCar: (id) => dispatch(getSingleCar(id)),
-  saveToCart: (id, amount, mark, model, price, engine) => dispatch(saveCartRequest({ id, amount, mark, model, price, engine })),
+  saveToCart: (id, amount, mark, model, price, engine, request) => dispatch(saveCartRequest({ id, amount, mark, model, price, engine, request })),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  // Component as Product,
   Container as Product,
   Component as ProductComponent,
 };

@@ -27,10 +27,23 @@ export const saveCartRequest = data => {
   return dispatch => {
     const cartProducts = JSON.parse(localStorage.getItem('cart'));
     if (cartProducts) {
+      /* Adding special request to particular car in localstorage */
       if (data[1] === 'request') {
-        localStorage.setItem('cart', JSON.stringify([...cartProducts, data]));
-        dispatch(addProductToCart([...cartProducts, data]));
+        for (const key in cartProducts) {
+
+          if (Object.prototype.hasOwnProperty.call(cartProducts, key)) {
+            const element = cartProducts[key];
+
+            if (element.id === data[2]) {
+              element.request = data[0];
+              localStorage.setItem('cart', JSON.stringify([...cartProducts]));
+              dispatch(addProductToCart([...cartProducts]));
+            }
+          }
+        }
+        return;
       }
+      /* handling AmountWidget value change*/
       for (const product of cartProducts) {
         if (product.id === data.id) {
           if (data.minus) {
@@ -50,9 +63,9 @@ export const saveCartRequest = data => {
           return;
         }
       }
-
       localStorage.setItem('cart', JSON.stringify([...cartProducts, data]));
       dispatch(addProductToCart([...cartProducts, data]));
+      /* handling adding first car to local storage */
     } else {
 
       localStorage.setItem('cart', JSON.stringify([data]));
@@ -98,6 +111,7 @@ export const loadCartRequest = () => {
 
 export const newOrder = data => {
   return async dispatch => {
+    console.log(data)
     dispatch(fetchStarted());
     try {
       let res = await Axios.post(
@@ -149,12 +163,6 @@ export const reducer = (statePart = [], action = {}) => {
         products: action.payload,
       };
     }
-    // case REMOVE_FROM_CART: {
-    //   return {
-    //     ...statePart,
-    //     products: statePart.products.filter(product => product._id !== action.payload._id),
-    //   };
-    // }
     case SEND_ORDER: {
       return {
         ...statePart,

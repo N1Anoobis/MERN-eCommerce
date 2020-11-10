@@ -9,6 +9,8 @@ router.post('/order', async (req, res) => {
 
   try {
     const { name, email, address, city, zip } = req.body.client;
+    const { request } = req.body.products;
+
     const newOrder = new Order({
       products: req.body.products,
       client: {
@@ -17,8 +19,8 @@ router.post('/order', async (req, res) => {
         address: sanitize(address),
         city: sanitize(city),
         zip: sanitize(zip),
+        request: sanitize(request),
       },
-      request: sanitize(req.body.request),
     });
     await newOrder.save();
     res.json(newOrder);

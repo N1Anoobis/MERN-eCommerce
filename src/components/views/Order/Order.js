@@ -10,7 +10,7 @@ import { getCart, newOrder, removeCart, loadCartRequest } from '../../../redux/c
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 import { Redirect } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron, Card, div } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron, Card } from 'reactstrap';
 
 const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
 
@@ -48,19 +48,8 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
 
   const sendOrderToDB = () => {
 
-    let carsArray = [];
-    let specialRequest = '';
-    const cartArray = Array.from(cart.products);
-    for (const iterator of cartArray) {
-      if (iterator[1] !== 'request') {
-        carsArray.push(iterator);
-      } else {
-        specialRequest = iterator[0];
-      }
-    }
-
     const data = {
-      products: carsArray,
+      products: cartArray,
       client: {
         name: formData.name,
         email: formData.email,
@@ -68,12 +57,9 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
         city: formData.city,
         zip: formData.zip,
       },
-      request: specialRequest,
     };
     setData(data);
     toggle();
-
-
   };
 
   const handleChange = (e) => {
@@ -112,8 +98,7 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
   };
 
   cartArray = Array.from(cart.products);
-  cartArray = cart.products.filter(prod => (!Array.isArray(prod)));
-  console.log(cartArray)
+
   return (
     <>
       <div>
@@ -128,11 +113,11 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
           </ModalFooter>
         </Modal>
       </div>
-
       {(!cartArray[0]) ? <Redirect to='/' /> : <div className={clsx(className, styles.root)}>
         <Card className={styles.card}>
           {cartArray.map(item => <div key={item.id} className={styles.recap}>
-            <div>{item.amount} </div><div>{item.mark}</div><div>{item.model}</div>
+            <div className={styles.details}> <div>{item.amount} </div><div>{item.mark}</div><div>{item.model}</div> <div>{item.price * item.amount}$</div></div>
+            <div className={styles.request}>{item.request}</div>
           </div>)}
         </Card>
         <Jumbotron className={styles.jumbo}>
@@ -205,7 +190,6 @@ const mapDispatchToProps = dispatch => ({
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  // Component as Order,
   Container as Order,
   Component as OrderComponent,
 };

@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
     model: { type: String, required: true },
     price: { type: String, required: true },
     engine: { type: String, required: true },
+    request: { type: String },
   }],
   client: {
     name: { type: String, required: true },
@@ -17,7 +18,6 @@ const orderSchema = new mongoose.Schema({
     city: { type: String, required: true },
     zip: { type: String, required: true },
   },
-  request: { type: String },
 },
 );
 
