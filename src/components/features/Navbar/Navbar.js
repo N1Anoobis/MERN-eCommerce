@@ -12,10 +12,12 @@ import styles from './Navbar.module.scss';
 
 const NavBar = ({ className, cart }) => {
 
+  const cartArray = cart.products.filter(prod => (!Array.isArray(prod)));
+
   return (
     <nav className={clsx(className, styles.nav)}>
       <NavLink to={`/`}><h5 className={styles.menuItem}>Home</h5></NavLink>
-      {cart.products[0] && <NavLink className={styles.cart} to={`/cart`}><h5 className={styles.menuItem}>Cart <Badge  color="danger" pill>{cart.products[0] && cart.products.length}</Badge></h5></NavLink>}
+      {cart.products[0] && <NavLink className={styles.cart} to={`/cart`}><h5 className={styles.menuItem}>Cart <Badge color="danger" pill>{cart.products[0] && cartArray.length}</Badge></h5></NavLink>}
       <NavLink className={styles.login} to={'/login'}><h5  >Login</h5></NavLink>
     </nav>
   );
