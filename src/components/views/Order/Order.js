@@ -120,9 +120,9 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage, loadC
     <>
       <div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
-          <ModalHeader toggle={toggle}>Special request added to cart</ModalHeader>
+          <ModalHeader toggle={toggle}>Your order has been submited</ModalHeader>
           <ModalBody>
-            You have just aded special request to cart. You can have 1 special request. You can allways remove it and add another one.
+            We are very happy that you like our product. It will be delivered to you by drons in 7 days. 
             Thank You for chosing our company
           </ModalBody>
           <ModalFooter>

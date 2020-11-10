@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption,
 } from 'reactstrap';
@@ -11,6 +11,12 @@ const Carusel = ({ className, car }) => {
   const [loaded, setLoaded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
+  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+
+    setTimeout(function(){ setLoader(true); }, 1000);
+  }, []);
 
   let carsImg = [];
 
@@ -21,17 +27,20 @@ const Carusel = ({ className, car }) => {
   if (car) {
     const items = [
       {
-        src: carsImg[0] ? carsImg[2] : '',
+        // src: carsImg[0] ? carsImg[2] : '',
+        src: loader ? carsImg[2] : 'https://media.giphy.com/media/o8kbrEd42tSKc/giphy.gif',
         altText: '):',
         caption: 'Quality',
       },
       {
-        src: carsImg[0] ? carsImg[1] : ' ',
+        // src: carsImg[0] ? carsImg[1] : ' ',
+        src: loader ? carsImg[1] : '',
         altText: '):',
         caption: 'Innovation',
       },
       {
-        src: carsImg[0] ? carsImg[0] : null,
+        // src: carsImg[0] ? carsImg[0] : null,
+        src: loader ? carsImg[0] : null,
         altText: '):',
         caption: 'Future',
       },

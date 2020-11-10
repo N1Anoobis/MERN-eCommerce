@@ -16,10 +16,12 @@
 
   .hide {
     transition: .3s;
-    transform: translateY(-100%);
-    position: absolute;
+    // transform: translateY(-100%);
+    display: none;
+    // position: absolute;
 
     .part {
+    
       background-color: black;
     }
   }

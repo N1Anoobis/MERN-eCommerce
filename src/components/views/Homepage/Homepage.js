@@ -13,7 +13,10 @@ import styles from './Homepage.module.scss';
 const Component = ({ className, getCars, cars, getMode }) => {
   const [loaded, setLoaded] = useState(false);
   const history = useHistory();
+  const [loader, setLoader] = useState(false);
+
   useEffect(() => {
+    setTimeout(function(){ setLoader(true); }, 400);
     getCars();
   }, []);
 
@@ -34,7 +37,7 @@ const Component = ({ className, getCars, cars, getMode }) => {
   return (
     <div className={clsx(className, styles.root)}>
       {(cars) && carsArray.map((car) => <Card key={car._id} className={mode === 'desktop' ? styles.carDesktop : mode === 'mobile' ? styles.carMobile : styles.carTablet} >
-        <CardImg style={loaded ? {} : { display: 'none' }} className={styles.carImg} src={car.img[0]} alt="Card image cap" onLoad={() => setLoaded(true)} />
+        <CardImg style={loaded ? {} : { display: 'none' }} className={styles.carImg} src={car.img[0]?car.img[0]:'https://media.giphy.com/media/o8kbrEd42tSKc/giphy.gif'} alt="Card image cap" onLoad={() => setLoaded(true)} />
         <CardBody className={styles.carBody}>
           <CardTitle>{car.mark}</CardTitle>
           <Button color="success" outline className={styles.btn} onClick={() => routeChange(car._id)} >Details</Button>

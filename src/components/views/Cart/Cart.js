@@ -50,6 +50,8 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
       flag = !flag;
     }
   }
+  cartArray.sort();
+
   return (
     <>
 
@@ -73,7 +75,7 @@ const Component = ({ className, cart, removeItem, saveToCart }) => {
             {product[1] === 'request' ? < NavbarBrand  >{product[0]}  </ NavbarBrand> :
               < NavbarBrand >{product.mark}  {product.model} </ NavbarBrand>}
             {product.amount && <AmountWidget id={product.id} amount={product.amount} />}
-            {product.price && < NavbarBrand >  Total Price: {product.price * product.amount}</ NavbarBrand>}
+            {product.price && < NavbarBrand >  Total: {product.price * product.amount} $</ NavbarBrand>}
 
             <div onClick={() => remove(product.id)} className={styles.exit}>X</div>
           </ListGroupItem>)}

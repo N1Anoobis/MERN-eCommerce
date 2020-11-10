@@ -27,7 +27,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-  console.log()
+
   return (
     <div className={clsx(className, styles.root)}>
 
@@ -46,7 +46,8 @@ const Component = ({ className, getCar, car, saveToCart }) => {
       </div>
 
       {car && <Jumbotron className={styles.jumbo}>
-        <h1 className="display-4">{car.mark} {car.model}</h1>
+        <h1 className="display-4">{car.mark}</h1>
+        <h1 className="display-4">{car.model}</h1>
         <Carusel />
         <p className="lead">This is uniqe mashine cost only {car.price}$, it is run by {car.engine} engine. We can assemble for you model form {car.year} calling extra attention to details.</p>
         <hr className="my-2" />
