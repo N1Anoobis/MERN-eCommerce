@@ -6,12 +6,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const carRoutes = require('./routes/api/car.routes');
 const orderRoutes = require('./routes/api/order.routes');
+const helmet = require('helmet');
 const app = express();
 
 /* MIDDLEWARE */
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
 
 /* API ENDPOINTS */
 app.use('/api', carRoutes);

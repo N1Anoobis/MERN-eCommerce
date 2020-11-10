@@ -49,6 +49,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "express-session": "^1.17.1",
     "font-awesome": "^4.7.0",
+    "helmet": "3.21.1",
     "mongo-sanitize": "1.0.1",
     "mongoose": "^5.10.11",
     "node-sass": "^4.13.0",
