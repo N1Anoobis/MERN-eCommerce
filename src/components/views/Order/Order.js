@@ -114,12 +114,12 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
         </Modal>
       </div>
       {(!cartArray[0]) ? <Redirect to='/' /> : <div className={clsx(className, styles.root)}>
-        <Card className={styles.card}>
+        <Jumbotron className={styles.card}>
           {cartArray.map(item => <div key={item.id} className={styles.recap}>
             <div className={styles.details}> <div>{item.amount} </div><div>{item.mark}</div><div>{item.model}</div> <div>{item.price * item.amount}$</div></div>
             <div className={styles.request}>{item.request}</div>
           </div>)}
-        </Card>
+        </Jumbotron >
         <Jumbotron className={styles.jumbo}>
           {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
           <Form
