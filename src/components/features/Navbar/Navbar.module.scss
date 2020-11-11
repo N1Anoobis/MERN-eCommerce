@@ -18,11 +18,11 @@
 .menuItem {
   margin-left: 20px;
   color: white;
-  opacity: .6;
+  // opacity: .6;
   transition: .3s;
   &:hover {
     opacity: 1;
-    color: white;
+    color: greenyellow;
   }
 }
 
@@ -32,13 +32,13 @@
 }
 
 .login {
-  color: green;
+  color: white;
   margin-right: 30px;
   margin-left: auto;
   opacity: .8;
   transition: .3s;
   &:hover {
     opacity: 1;
-    color: green;
+    color: greenyellow;
   }
 }

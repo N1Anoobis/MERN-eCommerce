@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Redirect } from 'react-router-dom';
 import clsx from 'clsx';
-import { ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button ,NavbarBrand} from 'reactstrap';
 import { connect } from 'react-redux';
-import { getCart, saveCartRequest, removeCartItem } from '../../../redux/cartRedux';
+import { getCart, removeCartItem } from '../../../redux/cartRedux';
 import AmountWidget from '../../../components/features/AmountWidget/AmountWidget';
 import SpecialRequest from '../../../components/features/SpecialRequest/SpecialRequest';
-import {
-  NavbarBrand,
-} from 'reactstrap';
 import styles from './Cart.module.scss';
 
 const Component = ({ className, cart, removeItem }) => {
