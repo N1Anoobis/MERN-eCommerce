@@ -5,8 +5,9 @@
   justify-content: space-around;
   align-content: space-between;
   flex-wrap: wrap;
-  padding-top: 60px;
+  padding-top: 40px;
   background-color: $background-color;
+  min-height: 100vh;
 
   @mixin car {
     margin-bottom: 15px;
@@ -46,6 +47,7 @@
     width: 100px;
     margin: 0 auto;
     margin-bottom: 10px;
+
     @media (max-width: 400px) {
       opacity: 1;
       color: green;

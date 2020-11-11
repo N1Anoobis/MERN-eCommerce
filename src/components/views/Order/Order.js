@@ -10,7 +10,7 @@ import { getCart, newOrder, removeCart, loadCartRequest } from '../../../redux/c
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 import { Redirect } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron, Card } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron } from 'reactstrap';
 
 const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
 

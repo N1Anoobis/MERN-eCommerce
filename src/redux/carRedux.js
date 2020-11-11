@@ -38,6 +38,13 @@ export const loadCars = () => {
   };
 };
 
+export const loadFiltredCars = (data) => {
+  return dispatch => {
+
+    dispatch(fetchSuccess(data));
+  };
+};
+
 export const getSingleCar = (id) => {
   return async (dispatch, state) => {
 

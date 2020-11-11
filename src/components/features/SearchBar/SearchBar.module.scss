@@ -1,0 +1,15 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  background-color: $background-color;
+  padding-top: 0;
+  margin-bottom: -20px;
+
+  @media (max-width: 400px) {
+    padding-top: 50px;
+  }
+
+  .input {
+    margin: 0 auto;
+  }
+}
