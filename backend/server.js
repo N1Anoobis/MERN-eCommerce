@@ -24,24 +24,25 @@ app.use('/api', (req, res) => {
   res.status(404).send({ data: 'Not found...' });
 });
 
-/* REACT WEBSITE */
-app.use(express.static(path.join(__dirname, '../build')));
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
-
-const db = 'mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/ShopItemsDB?retryWrites=true&w=majority';
+const db = ('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/ShopItemsDB?retryWrites=true&w=majority');
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
-// mongoose.connect(db);
+
+mongoose.connect(db);
 
 app.use(session({
   secret: 'foo',
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
+
+/* REACT WEBSITE */
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 /* START SERVER */
 const port = process.env.PORT || 8000;
