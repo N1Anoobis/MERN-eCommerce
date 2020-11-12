@@ -12,10 +12,10 @@
     "test-all": "react-scripts test --watchAll=false --noStackTrace",
     "test-related": "react-scripts test --watchAll=false --noStackTrace --findRelatedTests",
     "eject": "react-scripts eject",
-    "server": "set NODE_ENV='production' && npx nodemon backend/server.js",
+    "server": "npx nodemon backend/server.js",
     "client": "yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "yarn run build"
+    "heroku-postbuild": "set NODE_ENV='production' && yarn run build"
   },
   "lint-staged": {
     "src/**/*.js": [
