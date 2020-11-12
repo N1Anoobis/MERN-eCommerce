@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { API_URL } from '../config';
 /* selectors */
 export const getCart = ({ cart }) => cart;
 
@@ -111,11 +112,11 @@ export const loadCartRequest = () => {
 
 export const newOrder = data => {
   return async dispatch => {
-    console.log(data)
+    console.log(data);
     dispatch(fetchStarted());
     try {
       let res = await Axios.post(
-        `http://localhost:8000/api/order`,
+        `${API_URL}/order`,
         data,
         {
           headers: {

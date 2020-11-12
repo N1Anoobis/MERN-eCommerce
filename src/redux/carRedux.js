@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import {API_URL} from '../config';
 /* selectors */
 export const readCars = ({ cars }) => cars.data;
 export const currentCar = ({ cars }) => cars.currentProduct;
@@ -28,7 +29,7 @@ export const loadCars = () => {
 
     dispatch(fetchStarted());
     Axios
-      .get('http://localhost:8000/api/cars')
+      .get(`${API_URL}/cars`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
       })
@@ -49,7 +50,7 @@ export const getSingleCar = (id) => {
   return async (dispatch, state) => {
 
     dispatch(fetchStarted());
-    Axios.get(`http://localhost:8000/api/car/${id}`)
+    Axios.get(`${API_URL}/car/${id}`)
       .then(res => {
         dispatch(fetchSingleCar(res.data));
       })
