@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
-// const session = require('express-session');
-// const MongoStore = require('connect-mongo')(session);
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const carRoutes = require('./routes/api/car.routes');
 const orderRoutes = require('./routes/api/order.routes');
 const helmet = require('helmet');
@@ -38,10 +38,10 @@ mongoose
   .catch(err => console.log(err));
 mongoose.connect(db);
 
-// app.use(session({
-//   secret: 'foo',
-//   store: new MongoStore({ mongooseConnection: mongoose.connection }),
-// }));
+app.use(session({
+  secret: 'foo',
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+}));
 
 /* START SERVER */
 const port = process.env.PORT || 8000;
