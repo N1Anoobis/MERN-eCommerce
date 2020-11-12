@@ -15,7 +15,7 @@
     "server": "node backend/server.js",
     "client": "yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "YARN_CONFIG_PRODUCTION=false yarn && yarn run build"
+    "heroku-postbuild": "yarn run build"
   },
   "lint-staged": {
     "src/**/*.js": [
