@@ -12,7 +12,7 @@
     "test-all": "react-scripts test --watchAll=false --noStackTrace",
     "test-related": "react-scripts test --watchAll=false --noStackTrace --findRelatedTests",
     "eject": "react-scripts eject",
-    "server": "npx nodemon backend/server.js",
+    "server": "node backend/server.js",
     "client": "yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "yarn run build"
