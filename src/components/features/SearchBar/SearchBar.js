@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, FormGroup, Label, Input } from 'reactstrap';
 import clsx from 'clsx';
@@ -10,26 +10,29 @@ const SearchBar = ({ className, cars, filterCars, getCars }) => {
 
   const [phrase, setPhrase] = useState('');
 
-  useEffect(() => {
+  if (!phrase) {
+    getCars();
+  }
 
+  const checker = () => {
     if (phrase) {
       // getCars();
       const filtredCarsArray = Array.from(cars);
       const filtred = filtredCarsArray.filter(car => { return (car.mark.toLowerCase()).includes(phrase); });
-
       filterCars(filtred);
-
     } else {
       getCars();
-
     }
-  }, [phrase]);
+  };
+
+
 
   return (
     <div className={clsx(className, styles.root)}>
       <Col className={styles.input} sm={6}>
         <FormGroup>
           <Label for="search"></Label>
+          <div className={styles.enter} onClick={checker}>Search</div>
           <Input className={styles.input} value={phrase} type="text" name="search" id="search" placeholder="search" autoComplete="off" onChange={(e) => setPhrase(e.target.value)} />
         </FormGroup>
       </Col>
