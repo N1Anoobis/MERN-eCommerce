@@ -16,7 +16,6 @@ const SearchBar = ({ className, cars, filterCars, getCars }) => {
 
   const checker = () => {
     if (phrase) {
-      // getCars();
       const filtredCarsArray = Array.from(cars);
       const filtred = filtredCarsArray.filter(car => { return (car.mark.toLowerCase()).includes(phrase); });
       filterCars(filtred);
@@ -24,8 +23,6 @@ const SearchBar = ({ className, cars, filterCars, getCars }) => {
       getCars();
     }
   };
-
-
 
   return (
     <div className={clsx(className, styles.root)}>
