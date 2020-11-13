@@ -53,7 +53,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
         <hr className="my-2" />
         <p>Cars are our passion. We do everything to make customers happy. In case of any questions please contact us.</p>
         <p className="lead">
-          <Button onClick={addToCart} outline color="success">Add To Cart</Button>
+          <Button onClick={addToCart} color="success">Add To Cart</Button>
         </p>
         <FormGroup className={styles.choseNumber}>
           <Label for="exampleSelect">How many you want ?</Label>
