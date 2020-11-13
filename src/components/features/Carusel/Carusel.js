@@ -75,7 +75,7 @@ const Carusel = ({ className, car }) => {
           key={item.src}
         >
           <img className={clsx(className, styles.item)} src={item.src} alt={item.altText} />
-          <CarouselCaption captionHeader={item.caption} />
+          <CarouselCaption captionHeader={item.caption} captionText={''}/>
         </CarouselItem>
 
 
