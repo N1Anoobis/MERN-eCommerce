@@ -7,14 +7,16 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getCart } from '../../../redux/cartRedux';
+import { loadCars } from '../../../redux/carRedux';
 import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import styles from './NavBarMobile.module.scss';
 
-const NavBarMobile = ({ className, cart }) => {
+const NavBarMobile = ({ className, cart, getCars }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
+    getCars();
     setIsOpen(!isOpen);
   };
 
@@ -34,17 +36,18 @@ const NavBarMobile = ({ className, cart }) => {
 NavBarMobile.propTypes = {
   cart: PropTypes.object,
   className: PropTypes.string,
+  getCars: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   cart: getCart(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  getCars: () => dispatch(loadCars()),
+});
 
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export default connect(mapStateToProps)(NavBarMobile);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBarMobile);
 // export default NavBarMobile;

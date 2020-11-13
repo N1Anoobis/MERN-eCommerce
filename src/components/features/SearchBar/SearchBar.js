@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, FormGroup, Label, Input } from 'reactstrap';
+import { Col, FormGroup, Label, Input, Button } from 'reactstrap';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { readCars, loadFiltredCars, loadCars } from '../../../redux/carRedux';
@@ -9,19 +9,23 @@ import styles from './SearchBar.module.scss';
 const SearchBar = ({ className, cars, filterCars, getCars }) => {
 
   const [phrase, setPhrase] = useState('');
-
-  if (!phrase) {
-    getCars();
-  }
+  const [flag, setFlag] = useState(true);
 
   const checker = () => {
     if (phrase) {
+      setFlag(false);
       const filtredCarsArray = Array.from(cars);
-      const filtred = filtredCarsArray.filter(car => { return (car.mark.toLowerCase()).includes(phrase); });
+      const filtred = filtredCarsArray.filter(car => { return (car.mark.toLowerCase()).includes(phrase.toLowerCase()); });
       filterCars(filtred);
     } else {
       getCars();
     }
+  };
+
+  const clear = () => {
+    setFlag(true);
+    getCars();
+    setPhrase('');
   };
 
   return (
@@ -29,7 +33,8 @@ const SearchBar = ({ className, cars, filterCars, getCars }) => {
       <Col className={styles.input} sm={6}>
         <FormGroup>
           <Label for="search"></Label>
-          <div className={styles.enter} onClick={checker}>Search</div>
+          {flag? <Button outline color="success" className={styles.enter} onClick={checker}>Execute</Button> :
+            <Button outline color="success" className={styles.enter} onClick={clear}>Clear</Button>}
           <Input className={styles.input} value={phrase} type="text" name="search" id="search" placeholder="search" autoComplete="off" onChange={(e) => setPhrase(e.target.value)} />
         </FormGroup>
       </Col>
