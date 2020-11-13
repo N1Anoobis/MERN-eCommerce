@@ -17,7 +17,7 @@ const Carusel = ({ className, car }) => {
 
   useEffect(() => {
 
-    setTimeout(function () { setLoader(true); }, 1000);
+    setTimeout(function () { setLoader(true); }, 800);
   }, []);
 
   let carsImg = [];
@@ -75,7 +75,7 @@ const Carusel = ({ className, car }) => {
           key={item.src}
         >
           <img className={clsx(className, styles.item)} src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          <CarouselCaption captionHeader={item.caption} />
         </CarouselItem>
 
 

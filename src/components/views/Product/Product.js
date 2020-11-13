@@ -36,8 +36,7 @@ const Component = ({ className, getCar, car, saveToCart }) => {
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Product added to cart</ModalHeader>
           <ModalBody>
-            You have just aded {quantity} to cart. You can allways adjust number of cars in cart.
-            Thank You for chosing our company
+            You have just aded {quantity} {quantity<2?`car`:`cars`} to cart. You can allways adjust number of cars in cart. In case you want to buy more then 5 cars please speak to our customer support.
           </ModalBody>
           <ModalFooter>
             <NavLink className={styles.link} to={`/cart`}><Button color="info" >Go to cart</Button>{' '}</NavLink>
