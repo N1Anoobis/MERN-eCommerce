@@ -22,9 +22,13 @@ const Component = ({ className }) => {
       <div className={flag ? styles.hide : styles.show}>
 
         <h2 className={styles.header}>
-          Your 3d-printed Car
+          {/* <img src="lamb.png" alt="" /> */}
         </h2>
-        <div >     <Particles
+        {/* <div >    
+
+
+
+          <Particles
           canvasClassName={styles.part}
           params={{
             'particles': {
@@ -137,7 +141,7 @@ const Component = ({ className }) => {
               'background_size': 'cover',
             },
           }}
-        /></div>
+        /></div> */}
       </div>
     </div >
   );

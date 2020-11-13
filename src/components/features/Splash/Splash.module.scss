@@ -2,6 +2,7 @@
 
 .root {
   cursor: pointer;
+  // transition: 1s;
   .show {
     min-height: 100%;
     position: fixed;
@@ -14,12 +15,15 @@
   }
 
   .hide {
-    transition: .3s;
-    display: none;
-    .part {
+   
+    // display: none;
+    transition: 1s transform linear;
+    transform: translateY(-100%);
+    color: transparent;
+    // .part {
 
-      background-color: black;
-    }
+    //   background-color: black;
+    // }
   }
 
   .header {
@@ -34,7 +38,7 @@
     }
   }
 
-  .part {
-    height: 100vh !important;
-  }
+  // .part {
+  //   height: 100vh !important;
+  // }
 }

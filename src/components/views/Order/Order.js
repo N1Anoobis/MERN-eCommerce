@@ -140,7 +140,6 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
           </Table>
         </Jumbotron >
         <Jumbotron className={styles.jumbo}>
-          {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
           <Form
             onSubmit={handleSubmit}
           >
@@ -180,6 +179,7 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
               <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
               <Label for="exampleCheck" check>Check me out</Label>
             </FormGroup>
+            {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
             <Button outline color="success">Buy it!</Button>
           </Form>
         </Jumbotron>
