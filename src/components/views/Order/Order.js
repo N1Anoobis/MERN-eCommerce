@@ -10,7 +10,7 @@ import { getCart, newOrder, removeCart, loadCartRequest } from '../../../redux/c
 import ErrorDisplay from '../../features/ErrorDisplay/ErrorDisplay';
 import styles from './Order.module.scss';
 import { Redirect } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Jumbotron, Table } from 'reactstrap';
 
 const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => {
 
@@ -115,10 +115,29 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
       </div>
       {(!cartArray[0]) ? <Redirect to='/' /> : <div className={clsx(className, styles.root)}>
         <Jumbotron className={styles.card}>
-          {cartArray.map(item => <div key={item.id} className={styles.recap}>
-            <div className={styles.details}> <div>{item.amount} </div><div>{item.mark}</div><div>{item.model}</div> <div>{item.price * item.amount}$</div></div>
-            <div className={styles.request}>{item.request}</div>
-          </div>)}
+          <Table responsive>
+            <thead >
+              <tr>
+                <th></th>
+                <th>Cars nr</th>
+                <th>mark</th>
+                <th>model</th>
+                <th>total</th>
+              </tr>
+            </thead>
+            {cartArray.map(item => <tbody  key={item.id}>
+              <tr>
+                <th scope="row"></th>
+                <td>{item.amount}</td>
+                <td>{item.mark}</td>
+                <td>{item.model}</td>
+                <td>{item.price * item.amount}$</td>
+              </tr>
+              <tr >
+                <td className={styles.request}  colSpan='300px' >{item.request && item.request}</td>
+              </tr>
+            </tbody>)}
+          </Table>
         </Jumbotron >
         <Jumbotron className={styles.jumbo}>
           {formData.errorMsg && <ErrorDisplay msg={formData.errorMsg} />}
@@ -153,7 +172,7 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
               <Col md={2}>
                 <FormGroup>
                   <Label for="exampleZip">Post-Code</Label>
-                  <Input className={styles.input} type="text" name="zip" id="exampleZip" placeholder="your post-code" onChange={handleChange} />
+                  <Input className={styles.input} type="text" name="zip" id="exampleZip" placeholder="post-code" onChange={handleChange} />
                 </FormGroup>
               </Col>
             </Row>
@@ -161,7 +180,7 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
               <Input type="checkbox" name="check" id="exampleCheck" onChange={handleChange} />
               <Label for="exampleCheck" check>Check me out</Label>
             </FormGroup>
-            <Button>Buy it!</Button>
+            <Button outline color="success">Buy it!</Button>
           </Form>
         </Jumbotron>
       </div>}

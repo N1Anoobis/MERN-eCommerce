@@ -44,7 +44,7 @@ const SpecialRequest = ({ className, saveToCart, id }) => {
 
       <div className={clsx(className, styles.root)}>
         < div className={styles.special} >
-          {!isOpen ? <div className={styles.specialBtn} onClick={switched}>Click me to add special request</div> : <div className={styles.specialBtn} onClick={switched}>^^^</div>
+          {!isOpen ? <div className={styles.specialBtn} onClick={switched}>Add special request</div> : <div className={styles.specialBtn} onClick={switched}>Hide me</div>
           }
           <Collapse isOpen={isOpen}>
             <Card className={styles.cardRequest}>
