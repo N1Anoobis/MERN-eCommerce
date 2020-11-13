@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Badge, h5,
+  Badge,
 } from 'reactstrap';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ const NavBar = ({ className, cart, getCars }) => {
 
   return (
     <nav className={clsx(className, styles.nav)}>
-      <NavLink to={`/`}><h5 className={styles.menuItem} onClick={()=>getCars()} >Home</h5></NavLink>
+      <NavLink to={`/`}><h5 className={styles.menuItem} onClick={() => getCars()} >Home</h5></NavLink>
       {cart.products[0] && <NavLink className={styles.cart} to={`/cart`}><h5 className={styles.menuItem}>Cart <Badge color="danger" pill>{cart.products[0] && cartArray.length}</Badge></h5></NavLink>}
       <NavLink className={styles.login} to={'/login'}><h5  >Login</h5></NavLink>
     </nav>
@@ -40,10 +40,3 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
 
-
-// export {
-//   Component as Navbar,
-//   // Container as Navbar,
-//   Component as NavbarComponent,
-// };
-// export default NavBar;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Redirect } from 'react-router-dom';
 import clsx from 'clsx';
-import { ListGroup, ListGroupItem, Button ,NavbarBrand} from 'reactstrap';
+import { ListGroup, ListGroupItem, Button, NavbarBrand } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getCart, removeCartItem } from '../../../redux/cartRedux';
 import AmountWidget from '../../../components/features/AmountWidget/AmountWidget';
@@ -26,8 +26,8 @@ const Component = ({ className, cart, removeItem }) => {
   cartArray = Array.from(cart.products);
 
   return (
-    <>
-      {cartArray.length ? <ListGroup className={clsx(className, styles.root)}>
+    <div className={clsx(className, styles.root)}>
+      {cartArray.length ? <ListGroup>
         {cartArray.map(product =>
           <ListGroupItem className={styles.single} key={product.id ? product.id : product[0]} >
             {product[1] === 'request' ? < NavbarBrand className={styles.text}>{product[0]}  </ NavbarBrand> :
@@ -39,8 +39,8 @@ const Component = ({ className, cart, removeItem }) => {
           </ListGroupItem>)}
       </ListGroup>
         : <Redirect to='/' />}
-      { cartArray.length ? <NavLink className={styles.link} to={`/order`}><Button outline color="success">Order it!</Button></NavLink> : null}
-    </>
+      {cartArray.length ? <NavLink className={styles.link} to={`/order`}><Button outline color="success">Order it!</Button></NavLink> : null}
+    </div>
   );
 };
 

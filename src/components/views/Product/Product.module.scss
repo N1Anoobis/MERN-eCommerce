@@ -6,9 +6,12 @@
   text-align: center;
   margin-top: 60px;
   background-color: white;
+  padding-bottom: 60px;
+
   @media (max-width: 500px) {
     min-width: 95%;
   }
+
   .jumbo {
     background-color: $background-color;
   }

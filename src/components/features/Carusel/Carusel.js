@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './Carusel.module.scss';
 import clsx from 'clsx';
-import Zoom from 'react-img-zoom';
 
 const Carusel = ({ className, car }) => {
   const [loaded, setLoaded] = useState(false);
@@ -29,19 +28,16 @@ const Carusel = ({ className, car }) => {
   if (car) {
     const items = [
       {
-        // src: carsImg[0] ? carsImg[2] : '',
         src: loader ? carsImg[0] : 'https://media.giphy.com/media/hTxmxQmIqmYUkKwZT0/giphy.gif',
         altText: '):',
         caption: 'Quality',
       },
       {
-        // src: carsImg[0] ? carsImg[1] : ' ',
         src: loader ? carsImg[1] : '',
         altText: '):',
         caption: 'Innovation',
       },
       {
-        // src: carsImg[0] ? carsImg[0] : null,
         src: loader ? carsImg[2] : null,
         altText: '):',
         caption: 'Future',
@@ -75,10 +71,8 @@ const Carusel = ({ className, car }) => {
           key={item.src}
         >
           <img className={clsx(className, styles.item)} src={item.src} alt={item.altText} />
-          <CarouselCaption captionHeader={item.caption} captionText={''}/>
+          <CarouselCaption captionHeader={item.caption} captionText={''} />
         </CarouselItem>
-
-
       );
     });
 

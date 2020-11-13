@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { setGlobalViewPort } from '../../../redux/carRedux';
 import { getCart, loadCartRequest } from '../../../redux/cartRedux';
 import styles from './Header.module.scss';
-const Component = ({ className, setViewPort, cart, showCart }) => {
+const Component = ({ className, setViewPort, showCart }) => {
 
   let mode = null;
   const [size, setSize] = useState([0]);
@@ -46,21 +46,17 @@ Component.propTypes = {
   setViewPort: PropTypes.func,
   className: PropTypes.string,
   cart: PropTypes.object,
+  showCart: PropTypes.func,
 };
-
-const mapStateToProps = state => ({
-  cart: getCart(state),
-});
 
 const mapDispatchToProps = dispatch => ({
   setViewPort: (mode) => dispatch(setGlobalViewPort(mode)),
   showCart: () => dispatch(loadCartRequest()),
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(null, mapDispatchToProps)(Component);
 
 export {
-  // Component as Header,
   Container as Header,
   Component as HeaderComponent,
 };

@@ -25,7 +25,7 @@ const SpecialRequest = ({ className, saveToCart, id }) => {
   };
 
   const switched = () => setIsOpen(!isOpen);
-  
+
   return (
     <>
       <div>

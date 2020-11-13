@@ -1,4 +1,22 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  height: 40px;
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  .social a {
+    color: greenyellow;
+
+    i {
+      margin: 0 15px;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}

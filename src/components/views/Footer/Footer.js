@@ -1,23 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import clsx from 'clsx';
-
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
+import 'font-awesome/css/font-awesome.min.css';
 import styles from './Footer.module.scss';
 
-const Component = ({ className, children }) => {
-  // <div className={clsx(className, styles.root)}>
+const Component = ({ className }) => {
+
   return (
-
-    <Breadcrumb className={clsx(className, styles.root)}>
-      <BreadcrumbItem active>Home</BreadcrumbItem>
-    </Breadcrumb>
-
+    <div className={clsx(className, styles.root)}>
+      <div className={styles.social}>
+        <a href="https://www.facebook.com" target="blank"><i className="fa fa-facebook"></i></a>
+        <a href="https://www.youtube.com" target="blank"><i className="fa fa-youtube"></i></a>
+        <a href="https://www.instagram.com" target="blank"><i className="fa fa-instagram"></i></a>
+      </div>
+    </div>
   );
-  // </div>
 };
 
 Component.propTypes = {
@@ -25,18 +22,7 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
 export {
   Component as Footer,
-  // Container as Footer,
   Component as FooterComponent,
 };

@@ -118,23 +118,21 @@ const Component = ({ className, cart, sendOrderRequest, clearLocalStorage }) => 
           <Table responsive>
             <thead >
               <tr>
-                {/* <th></th> */}
                 <th>quantity</th>
                 <th>mark</th>
                 <th>model</th>
                 <th>total</th>
               </tr>
             </thead>
-            {cartArray.map(item => <tbody  key={item.id}>
+            {cartArray.map(item => <tbody key={item.id}>
               <tr>
-                {/* <th scope="row"></th> */}
                 <td>{item.amount}</td>
                 <td>{item.mark}</td>
                 <td>{item.model}</td>
                 <td>{item.price * item.amount}$</td>
               </tr>
               <tr >
-                <td className={styles.request}  colSpan='300px' >{item.request && item.request}</td>
+                <td className={styles.request} colSpan='300px' >{item.request && item.request}</td>
               </tr>
             </tbody>)}
           </Table>

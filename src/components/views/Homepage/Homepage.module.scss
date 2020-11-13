@@ -7,12 +7,11 @@
   flex-wrap: wrap;
   padding-top: 40px;
   background-color: $background-color;
-  min-height: 95vh;
-  // padding-bottom: auto;
+  min-height: 100vh;
+  padding-bottom: 60px;
 
   @mixin car {
     margin-bottom: 15px;
-    // max-width: 33%;
     transition: 1s;
     overflow: hidden;
     text-align: center;

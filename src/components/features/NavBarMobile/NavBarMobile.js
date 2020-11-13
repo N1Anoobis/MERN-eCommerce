@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import {
   NavbarBrand, Badge,
@@ -47,7 +46,4 @@ const mapDispatchToProps = dispatch => ({
   getCars: () => dispatch(loadCars()),
 });
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
 export default connect(mapStateToProps, mapDispatchToProps)(NavBarMobile);
-// export default NavBarMobile;

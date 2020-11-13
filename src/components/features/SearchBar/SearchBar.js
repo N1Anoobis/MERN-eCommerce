@@ -33,8 +33,9 @@ const SearchBar = ({ className, cars, filterCars, getCars }) => {
       <Col className={styles.input} sm={6}>
         <FormGroup>
           <Label for="search"></Label>
-          {flag? <Button outline color="success" className={styles.enter} onClick={checker}>Search</Button> :
+          {flag ? <Button color="success" className={styles.enter} onClick={checker}>Search</Button> :
             <Button outline color="danger" className={styles.enter} onClick={clear}>Reset</Button>}
+          <Label for="serch" />
           <Input className={styles.input} value={phrase} type="text" name="search" id="search" placeholder="type car mark" autoComplete="off" onChange={(e) => setPhrase(e.target.value)} />
         </FormGroup>
       </Col>

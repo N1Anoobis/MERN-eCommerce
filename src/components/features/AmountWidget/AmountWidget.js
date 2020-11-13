@@ -36,10 +36,6 @@ AmountWidget.propTypes = {
   id: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-// someProp: reduxSelector(state),
-// });
-
 const mapDispatchToProps = dispatch => ({
   saveToCart: (id, amount, minus) => dispatch(saveCartRequest({ id, amount, minus })),
 });
