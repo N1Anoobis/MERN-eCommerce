@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './Splash.module.scss';
 
-const Component = ({ className }) => {
+import { connect } from 'react-redux';
+import {  loadCars } from '../../../redux/carRedux';
+
+const Component = ({ className, getCars }) => {
 
   const [flag, setFlag] = useState(false);
   const hideSplash = () => {
@@ -14,6 +17,8 @@ const Component = ({ className }) => {
   const scroolChange = () => {
     window.scrollTo(0, 0);
   };
+
+  getCars();
 
   return (
     <div className={clsx(className, styles.root)} onClick={hideSplash} >
@@ -31,9 +36,16 @@ const Component = ({ className }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  getCars: PropTypes.func,
 };
 
+const mapDispatchToProps = dispatch => ({
+  getCars: () => dispatch(loadCars()),
+});
+
+const Container = connect(null, mapDispatchToProps)(Component);
+
 export {
-  Component as Splash,
+  Container as Splash,
   Component as SplashComponent,
 };
