@@ -17,6 +17,11 @@
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "yarn run build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "src/**/*.js": [
       "yarn test-related --",
