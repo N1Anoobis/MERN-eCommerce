@@ -47,7 +47,7 @@ const SpecialRequest = ({ className, saveToCart, id }) => {
           }
           <Collapse isOpen={isOpen}>
             <Card className={styles.cardRequest}>
-              <Input className={styles.input} placeholder="minimum 5 digits" type="textarea" name="valueuest" id="valueuest" value={request} onChange={e => setRequest(e.target.value)} />
+              <Input className={styles.input} placeholder="minimum 7 digits" type="textarea" name="valueuest" id="valueuest" value={request} onChange={e => setRequest(e.target.value)} />
               <div className={styles.btn} onClick={() => specialRequest(id)}> Add</div>
             </Card>
           </Collapse>
