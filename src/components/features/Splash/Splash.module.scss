@@ -7,26 +7,29 @@
     min-height: 100%;
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
     background-color: black;
     z-index: 999;
+    width: 100vw;
+    height: 100vh;
   }
 
   .hide {
-
     transition: 1s transform linear;
-    transform: translateY(-100%);
-    color: transparent;
+    display: none;
+  }
+
+  .part {
+    height: 100vh !important;
   }
 
   .header {
-    position: fixed;
     color: white;
     text-align: center;
-    margin: 20% 35%;
-    transition: .6s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     &:hover {
       color: darkgreen;
