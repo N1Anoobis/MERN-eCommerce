@@ -5,7 +5,7 @@ import NavBar from '../../features/Navbar/Navbar';
 import NavBarMobile from '../../features/NavBarMobile/NavBarMobile';
 import { connect } from 'react-redux';
 import { setGlobalViewPort } from '../../../redux/carRedux';
-import { getCart, loadCartRequest } from '../../../redux/cartRedux';
+import { loadCartRequest } from '../../../redux/cartRedux';
 import styles from './Header.module.scss';
 const Component = ({ className, setViewPort, showCart }) => {
 
@@ -18,7 +18,6 @@ const Component = ({ className, setViewPort, showCart }) => {
   else {
     mode = 'desktop';
   }
-
 
   useLayoutEffect(() => {
 

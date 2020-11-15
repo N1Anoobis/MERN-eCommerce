@@ -1,10 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ProductComponent } from './Product';
+import { Provider } from 'react-redux';
+import { store } from '../../../redux/store';
 
-describe('Component Productt', () => {
+describe('Component Product', () => {
   it('should render without crashing', () => {
-    const component = shallow(<ProductComponent />);
-    expect(component).toBeTruthy();
+    expect(
+      shallow(
+        <Provider store={store}>
+          <ProductComponent />
+        </Provider>
+      )
+    ).toBeTruthy();
   });
 });

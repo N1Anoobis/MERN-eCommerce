@@ -8,14 +8,14 @@ const validateUserInput = (name, email, address, city, zip, request) => {
 
   else if (!validEmail.test(email)) isValid = false;
   else if (invalidSigns.test(name)
-        ||
-        invalidSigns.test(email)
-        ||
-        invalidSigns.test(address)
-        ||
-        invalidSigns.test(city)
-        ||
-        invalidSigns.test(zip)
+    ||
+    invalidSigns.test(email)
+    ||
+    invalidSigns.test(address)
+    ||
+    invalidSigns.test(city)
+    ||
+    invalidSigns.test(zip)
   ) isValid = false;
 
   if (request) {

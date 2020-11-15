@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import  Carusel  from './Carusel';
+import Carusel from './Carusel';
 import { Provider } from 'react-redux';
 import { store } from '../../../redux/store';
 describe('Component Carusel', () => {

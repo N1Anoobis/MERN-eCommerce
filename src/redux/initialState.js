@@ -5,8 +5,8 @@ export const initialState = {
       active: false,
       error: false,
     },
-    currentProduct:{},
-    mode:{},
+    currentProduct: {},
+    mode: {},
   },
   cart: {
     products: [],
