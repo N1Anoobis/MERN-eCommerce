@@ -16,7 +16,7 @@ const SpecialRequest = ({ className, saveToCart, id }) => {
   const toggle = () => setModal(!modal);
 
   const specialRequest = (id) => {
-    if (request) {
+    if (request.length > 6) {
       saveToCart([request, 'request', id]);
       setRequest('');
       toggle();
@@ -41,14 +41,13 @@ const SpecialRequest = ({ className, saveToCart, id }) => {
         </Modal>
       </div>
 
-
       <div className={clsx(className, styles.root)}>
         < div className={styles.special} >
           {!isOpen ? <div className={styles.specialBtn} onClick={switched}>Add special request</div> : <div className={styles.specialBtn} onClick={switched}>Hide me</div>
           }
           <Collapse isOpen={isOpen}>
             <Card className={styles.cardRequest}>
-              <Input className={styles.input} type="textarea" name="valueuest" id="valueuest" value={request} onChange={e => setRequest(e.target.value)} />
+              <Input className={styles.input} placeholder="minimum 5 digits" type="textarea" name="valueuest" id="valueuest" value={request} onChange={e => setRequest(e.target.value)} />
               <div className={styles.btn} onClick={() => specialRequest(id)}> Add</div>
             </Card>
           </Collapse>

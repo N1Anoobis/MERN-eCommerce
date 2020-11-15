@@ -1,10 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SpecialRequestComponent } from './SpecialRequest';
+import SpecialRequest from './SpecialRequest';
+import { Provider } from 'react-redux';
+import { store } from '../../../redux/store';
 
 describe('Component SpecialRequest', () => {
   it('should render without crashing', () => {
-    const component = shallow(<SpecialRequestComponent />);
-    expect(component).toBeTruthy();
+    expect(
+      shallow(
+        <Provider store={store}>
+          <SpecialRequest />
+        </Provider>
+      )
+    ).toBeTruthy();
   });
 });

@@ -23,7 +23,9 @@ const Component = ({ className, cart, removeItem }) => {
     removeItem(id);
   };
 
-  cartArray = Array.from(cart.products);
+  if (typeof cart.products !== 'undefined') {
+    cartArray = Array.from(cart.products);
+  }
 
   return (
     <div className={clsx(className, styles.root)}>
