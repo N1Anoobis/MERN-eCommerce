@@ -9,7 +9,7 @@ const AmountWidget = ({ className, amount, saveToCart, id }) => {
   const [number, setNumber] = useState([amount]);
 
   const plus = (id) => {
-    if (number < 5) {
+    if (number < 100) {
       setNumber(parseInt(number) + 1);
     }
     saveToCart(id, 1);

@@ -55,7 +55,7 @@ export const saveCartRequest = data => {
             }
             return;
           }
-          if (product.amount < 5) {
+          if (product.amount < 100) {
             product.amount = parseInt(product.amount) + parseInt(data.amount);
 
             localStorage.setItem('cart', JSON.stringify([...cartProducts]));
