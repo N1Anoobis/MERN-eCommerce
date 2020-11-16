@@ -24,7 +24,7 @@ app.use('/api', (req, res) => {
   res.status(404).send({ data: 'Not found...' });
 });
 
-const db = ('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/ShopItemsDB?retryWrites=true&w=majority');
+const db = (`mongodb+srv://${process.env.user}:${process.env.password}cluster0.rqbyt.mongodb.net/ShopItemsDB?retryWrites=true&w=majority`);
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
