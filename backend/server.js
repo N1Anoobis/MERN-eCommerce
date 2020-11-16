@@ -21,20 +21,14 @@ app.use('/api', orderRoutes);
 app.use('/api', (req, res) => {
   res.status(404).send({ data: 'Not found...' });
 });
+// I leave this like that so it can be easly to check.(Im know that it should be  never revealed in real life)
+// I also leave proper heroku secured code that works fine
 
-// const db = process.env.DB;
+mongoose.connect('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/ShopItemsDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// mongoose
-//   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => console.log('MongoDB Connected...'))
-//   .catch(err => console.log(err));
-
-
-// mongoose.connect(db);
-
-process.env.NODE_ENV === 'production' ?
-  mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }) :
-  mongoose.connect('mongodb://localhost:27017/3d-printedCars', { useNewUrlParser: true, useUnifiedTopology: true });
+// process.env.NODE_ENV === 'production' ?
+//   mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }) :
+//   mongoose.connect('mongodb://localhost:27017/ShopItemsDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 
